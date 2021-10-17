@@ -122,6 +122,63 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 列表头部 */
 .list-head.data-v-7d5e07c6 {
 	display: -webkit-box;
@@ -183,5 +240,22 @@
 .list-head-text view.data-v-7d5e07c6:nth-child(3) {
 	line-height: 34rpx;
 	font-size: 22rpx;
+}
+/* 列表分享 按钮 */
+.list-share.data-v-7d5e07c6 {
+	width: 330rpx;
+	height: 74rpx;
+	/* 居中 */
+	margin: 0 auto;
+	background: rgba(0, 0, 0, 0.4);
+	border-radius: 37rpx;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 74rpx;
+	font-size: 28rpx;
+}
+/* 列表分享 文本 */
+.list-share text.data-v-7d5e07c6 {
+	margin-right: 16rpx;
 }
 

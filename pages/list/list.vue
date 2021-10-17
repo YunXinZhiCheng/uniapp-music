@@ -8,7 +8,7 @@
 		<view class="container">
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
-				<!-- 列表头部: 左侧图片+右侧信息 -->
+				<!-- 1.列表头部: 左侧图片+右侧信息 -->
 				<view class="list-head">
 					<!-- 左侧图片 -->
 					<view class="list-head-img">
@@ -26,6 +26,63 @@
 						</view>
 					</view>
 
+				</view>
+
+				<!-- 2.列表分享：用条件编译，让H5隐藏，让微信显示 -->
+				<!-- #ifdef MP-WEIXIN -->
+				<!-- 列表分享：按钮包含图标-->
+				<button class="list-share" open-type="share">
+					<text class="iconfont iconicon-">分享给微信好友</text>
+				</button>
+				<!-- #endif -->
+
+				<!-- 3.列表歌单 -->
+				<view class="list-music">
+					<!-- 头部：左+中+右 -->
+					<view class="list-music-head">
+						<text class="iconfont iconbofang"></text>
+						<text>播放全部</text>
+						<text>共100首</text>
+					</view>
+					<!-- 底部: 左+中+右 列表项 -->
+					<view class="list-music-item">
+						<view class="list-music-top"></view>
+						<view class="list-music-song">
+							<view>歌曲名</view>
+							<view>
+								<image src="../../static/dujia.png" mode=""></image>
+								<image src="../../static/sq.png" mode=""></image>
+								歌手名-歌曲名
+							</view>
+						</view>
+						<text class="iconfont iconbofang"></text>
+					</view>
+					<!-- 底部: 左+中+右 列表项 -->
+					<view class="list-music-item">
+						<view class="list-music-top"></view>
+						<view class="list-music-song">
+							<view>歌曲名</view>
+							<view>
+								<image src="../../static/dujia.png" mode=""></image>
+								<image src="../../static/sq.png" mode=""></image>
+								歌手名-歌曲名
+							</view>
+						</view>
+						<text class="iconfont iconbofang"></text>
+					</view>
+					<!-- 底部: 左+中+右 列表项 -->
+					<view class="list-music-item">
+						<view class="list-music-top"></view>
+						<view class="list-music-song">
+							<view>歌曲名</view>
+							<view>
+								<image src="../../static/dujia.png" mode=""></image>
+								<image src="../../static/sq.png" mode=""></image>
+								歌手名-歌曲名
+							</view>
+						</view>
+						<text class="iconfont iconbofang"></text>
+					</view>
 				</view>
 
 			</scroll-view>
@@ -122,5 +179,25 @@
 	.list-head-text view:nth-child(3) {
 		line-height: 34rpx;
 		font-size: 22rpx;
+	}
+
+	/* 列表分享 按钮 */
+	.list-share {
+		width: 330rpx;
+		height: 74rpx;
+		/* 居中 */
+		margin: 0 auto;
+		background: rgba(0, 0, 0, 0.4);
+		border-radius: 37rpx;
+		color: #FFFFFF;
+		text-align: center;
+		line-height: 74rpx;
+		font-size: 28rpx;
+
+	}
+
+	/* 列表分享 文本 */
+	.list-share text {
+		margin-right: 16rpx;
 	}
 </style>
