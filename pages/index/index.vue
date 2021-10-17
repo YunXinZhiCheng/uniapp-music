@@ -13,8 +13,50 @@
 					<!-- 搜索表单 -->
 					<input type="text" placeholder="搜索歌曲">
 				</view>
+				<!-- 分类 -->
+				<view class="index-list">
+					<!-- 分类项：左侧图片+右侧信息 -->
+					<view class="index-list-item">
+						<!-- 图片 -->
+						<view class="index-list-img">
+							<image src="../../static/wangyiyunyinyue.png" mode=""></image>
+							<text>每日更新</text>
+						</view>
+						<!-- 信息 -->
+						<view class="index-list-text">
+							<view>1.歌曲名-歌手名</view>
+							<view>2.歌曲名-歌手名</view>
+							<view>3.歌曲名-歌手名</view>
+						</view>
+					</view><!-- 分类项：左侧图片+右侧信息 -->
+					<view class="index-list-item">
+						<!-- 图片 -->
+						<view class="index-list-img">
+							<image src="../../static/wangyiyunyinyue.png" mode=""></image>
+							<text>每日更新</text>
+						</view>
+						<!-- 信息 -->
+						<view class="index-list-text">
+							<view>1.歌曲名-歌手名</view>
+							<view>2.歌曲名-歌手名</view>
+							<view>3.歌曲名-歌手名</view>
+						</view>
+					</view><!-- 分类项：左侧图片+右侧信息 -->
+					<view class="index-list-item">
+						<!-- 图片 -->
+						<view class="index-list-img">
+							<image src="../../static/wangyiyunyinyue.png" mode=""></image>
+							<text>每日更新</text>
+						</view>
+						<!-- 信息 -->
+						<view class="index-list-text">
+							<view>1.歌曲名-歌手名</view>
+							<view>2.歌曲名-歌手名</view>
+							<view>3.歌曲名-歌手名</view>
+						</view>
+					</view>
 
-				<view class="">测试</view>
+				</view>
 			</scroll-view>
 		</view>
 	</view>
@@ -28,7 +70,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+
 			}
 		},
 		// 注册
@@ -66,5 +108,45 @@
 	.index-search input {
 		font-size: 28rpx;
 		flex: 1;
+	}
+
+	/* 分类 */
+	.index-list {
+		margin: 0 30rpx;
+	}
+
+	/* 分类项 */
+	.index-list-item {
+		display: flex;
+		margin-bottom: 34rpx;
+	}
+
+	/* 分类项 左侧图片 */
+	.index-list-img {
+		width: 212rpx;
+		height: 212rpx;
+		position: relative;
+		border-radius: 30rpx;
+		overflow: hidden;
+		margin-right: 22rpx;
+	}
+
+	.index-list-img image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.index-list-img text {
+		position: absolute;
+		left: 12rpx;
+		bottom: 16rpx;
+		color: #FFFFFF;
+		font-size: 20rpx;
+	}
+
+	/* 分类项 右侧信息 */
+	.index-list-text {
+		font-size: 24rpx;
+		line-height: 66rpx;
 	}
 </style>

@@ -107,6 +107,48 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 搜索 */
 .index-search.data-v-57280228 {
 	display: -webkit-box;
@@ -132,5 +174,41 @@
 	-webkit-box-flex: 1;
 	-webkit-flex: 1;
 	        flex: 1;
+}
+/* 分类 */
+.index-list.data-v-57280228 {
+	margin: 0 30rpx;
+}
+/* 分类项 */
+.index-list-item.data-v-57280228 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	margin-bottom: 34rpx;
+}
+/* 分类项 左侧图片 */
+.index-list-img.data-v-57280228 {
+	width: 212rpx;
+	height: 212rpx;
+	position: relative;
+	border-radius: 30rpx;
+	overflow: hidden;
+	margin-right: 22rpx;
+}
+.index-list-img image.data-v-57280228 {
+	width: 100%;
+	height: 100%;
+}
+.index-list-img text.data-v-57280228 {
+	position: absolute;
+	left: 12rpx;
+	bottom: 16rpx;
+	color: #FFFFFF;
+	font-size: 20rpx;
+}
+/* 分类项 右侧信息 */
+.index-list-text.data-v-57280228 {
+	font-size: 24rpx;
+	line-height: 66rpx;
 }
 
