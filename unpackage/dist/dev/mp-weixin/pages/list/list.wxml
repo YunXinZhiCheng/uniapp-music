@@ -1,0 +1,1 @@
+<view class="list data-v-7d5e07c6"><view class="fixbg data-v-7d5e07c6"></view><musichead vue-id="2e637200-1" title="歌单" icon="{{true}}" color="white" class="data-v-7d5e07c6" bind:__l="__l"></musichead><view class="container data-v-7d5e07c6"><scroll-view scroll-y="true" class="data-v-7d5e07c6"><view class="data-v-7d5e07c6"></view></scroll-view></view></view>

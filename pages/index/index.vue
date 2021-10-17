@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 		<!-- 头部组件 -->
-		<musichead title="云音乐" :icon="true"></musichead>
+		<musichead title="云音乐" :icon="false"></musichead>
 		<!-- 通用容器 -->
 		<view class="container">
 			<!-- 滚动区域 -->
@@ -16,7 +16,8 @@
 				<!-- 分类 -->
 				<view class="index-list">
 					<!-- 分类项：左侧图片+右侧信息 -->
-					<view class="index-list-item" v-for="(item,index) in topList" :key="index">
+					<view class="index-list-item" v-for="(item,index) in topList" :key="index"
+						@tap="handleToList(item.listId)">
 						<!-- 图片 -->
 						<view class="index-list-img">
 							<image :src="item.coverImgUrl" mode=""></image>
@@ -65,7 +66,13 @@
 			})
 		},
 		methods: {
-
+			// 跳转到列表页，参数：列表的Id
+			handleToList(listId) {
+				uni.navigateTo({
+					// 传参地址：字符串拼接
+					url: '/pages/list/list?listId=' + listId
+				})
+			}
 		}
 	}
 </script>

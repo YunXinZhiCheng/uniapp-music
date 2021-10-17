@@ -1,5 +1,5 @@
 <template>
-	<view class="music-head">
+	<view class="music-head" :style="{color:color}">
 		<!-- 头部图标 -->
 		<view class="music-head-icon" v-if="icon">
 			<!-- 返回左箭头 -->
@@ -21,8 +21,8 @@
 
 			};
 		},
-		// 接收属性: 标题，图标显示/隐藏
-		props: ['title', 'icon'],
+		// 接收属性: 标题，图标显示/隐藏，颜色
+		props: ['title', 'icon', 'color'],
 		// 方法
 		methods: {
 			// 返回上一级
