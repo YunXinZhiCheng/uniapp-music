@@ -16,43 +16,17 @@
 				<!-- 分类 -->
 				<view class="index-list">
 					<!-- 分类项：左侧图片+右侧信息 -->
-					<view class="index-list-item">
+					<view class="index-list-item" v-for="(item,index) in topList" :key="index">
 						<!-- 图片 -->
 						<view class="index-list-img">
-							<image src="../../static/wangyiyunyinyue.png" mode=""></image>
-							<text>每日更新</text>
+							<image :src="item.coverImgUrl" mode=""></image>
+							<text>{{item.updateFrequency}}</text>
 						</view>
 						<!-- 信息 -->
 						<view class="index-list-text">
-							<view>1.歌曲名-歌手名</view>
-							<view>2.歌曲名-歌手名</view>
-							<view>3.歌曲名-歌手名</view>
-						</view>
-					</view><!-- 分类项：左侧图片+右侧信息 -->
-					<view class="index-list-item">
-						<!-- 图片 -->
-						<view class="index-list-img">
-							<image src="../../static/wangyiyunyinyue.png" mode=""></image>
-							<text>每日更新</text>
-						</view>
-						<!-- 信息 -->
-						<view class="index-list-text">
-							<view>1.歌曲名-歌手名</view>
-							<view>2.歌曲名-歌手名</view>
-							<view>3.歌曲名-歌手名</view>
-						</view>
-					</view><!-- 分类项：左侧图片+右侧信息 -->
-					<view class="index-list-item">
-						<!-- 图片 -->
-						<view class="index-list-img">
-							<image src="../../static/wangyiyunyinyue.png" mode=""></image>
-							<text>每日更新</text>
-						</view>
-						<!-- 信息 -->
-						<view class="index-list-text">
-							<view>1.歌曲名-歌手名</view>
-							<view>2.歌曲名-歌手名</view>
-							<view>3.歌曲名-歌手名</view>
+							<view v-for="(musicItem,index) in item.tracks" :key="index">
+								{{index+1}}.{{musicItem.first}} - {{musicItem.second}}
+							</view>
 						</view>
 					</view>
 
@@ -67,18 +41,28 @@
 	import '@/common/iconfont.css'
 	// 头部组件引入
 	import musichead from '../../components/musichead/musichead.vue'
+	// 首页数据接口引入
+	import {
+		topList
+	} from '../../common/api.js'
 	export default {
 		data() {
 			return {
-
+				topList: [] // 分类数组
 			}
 		},
 		// 注册
 		components: {
 			musichead
 		},
+		// 生命周期：页面加载完成后触发
 		onLoad() {
-
+			topList().then(res => {
+				// 判断：如果数据存在
+				if (res.length) {
+					this.topList = res
+				}
+			})
 		},
 		methods: {
 

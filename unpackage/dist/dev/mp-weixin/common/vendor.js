@@ -8156,6 +8156,58 @@ module.exports = g;
 
 /***/ }),
 
+/***/ 31:
+/*!***********************************************************************!*\
+  !*** /Users/mac/Desktop/面试项目/多端与小程序/music/uniapp-music/common/api.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;
+var _config = __webpack_require__(/*! ./config.js */ 32); // 引入
+
+
+
+// 分类接口
+function topList() {
+  return new Promise(function (resolve, reject) {
+    uni.request({
+      // 使用字符串拼接
+      url: "".concat(_config.baseUrl, "/toplist/detail"),
+      method: 'GET',
+      data: {},
+      success: function success(res) {
+        // console.log(res)
+
+        // 数组数据
+        var result = res.data.list;
+        // 数组方法：获取前4项
+        result.length = 4;
+        // 成功执行
+        resolve(result);
+      } });
+
+  });
+
+}
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 32:
+/*!**************************************************************************!*\
+  !*** /Users/mac/Desktop/面试项目/多端与小程序/music/uniapp-music/common/config.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });exports.baseUrl = void 0; // 配置
+var baseUrl = 'https://lyccode.vercel.app';exports.baseUrl = baseUrl;
+
+/***/ }),
+
 /***/ 4:
 /*!********************************************************************!*\
   !*** /Users/mac/Desktop/面试项目/多端与小程序/music/uniapp-music/pages.json ***!

@@ -198,59 +198,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+__webpack_require__(/*! @/common/iconfont.css */ 21);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-__webpack_require__(/*! @/common/iconfont.css */ 21); //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _api = __webpack_require__(/*! ../../common/api.js */ 31); //
 //
 //
 //
@@ -289,8 +241,11 @@ __webpack_require__(/*! @/common/iconfont.css */ 21); //
 //
 //
 // 字体图标引入
-var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 26));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return {};}, // 注册
-  components: { musichead: musichead }, onLoad: function onLoad() {}, methods: {} };exports.default = _default;
+var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 26));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { topList: [] // 分类数组
+    };}, // 注册
+  components: { musichead: musichead }, // 生命周期：页面加载完成后触发
+  onLoad: function onLoad() {var _this = this;(0, _api.topList)().then(function (res) {// 判断：如果数据存在
+      if (res.length) {_this.topList = res;}});}, methods: {} };exports.default = _default;
 
 /***/ }),
 /* 17 */
