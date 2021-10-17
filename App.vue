@@ -35,7 +35,7 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		background-image: url(static/logo.png);
+		background-image: url(static/wangyiyunyinyue.png);
 		background-size: cover;
 		background-position: center 0;
 		/* 模糊效果 */

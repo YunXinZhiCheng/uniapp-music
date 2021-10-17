@@ -179,6 +179,9 @@
 
 
 
+
+
+
 /* 列表头部 */
 .list-head.data-v-7d5e07c6 {
 	display: -webkit-box;
@@ -257,5 +260,76 @@
 /* 列表分享 文本 */
 .list-share text.data-v-7d5e07c6 {
 	margin-right: 16rpx;
+}
+/* 歌单 */
+.list-music.data-v-7d5e07c6 {
+	background: #FFFFFF;
+	border-radius: 50rpx;
+	margin-top: 40rpx;
+	overflow: hidden;
+}
+/* 歌单头部 */
+.list-music-head.data-v-7d5e07c6 {
+	height: 50rpx;
+	margin: 30rpx 0 70rpx 22rpx;
+}
+.list-music-head text.data-v-7d5e07c6:nth-child(1) {
+	height: 50rpx;
+	font-size: 50rpx;
+}
+.list-music-head text.data-v-7d5e07c6:nth-child(2) {
+	font-size: 30rpx;
+	margin: 0 10rpx 0 26rpx;
+}
+.list-music-head text.data-v-7d5e07c6:nth-child(3) {
+	font-size: 26rpx;
+	color: #b2b2b2;
+}
+/* 歌单底部  */
+.list-music-item.data-v-7d5e07c6 {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	margin: 0 32rpx 66rpx 46rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	color: #959595;
+}
+.list-music-top.data-v-7d5e07c6 {
+	width: 58rpx;
+	font-size: 30rpx;
+	line-height: 30rpx;
+}
+.list-music-song.data-v-7d5e07c6 {
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+}
+/* 第一个 */
+.list-music-song view.data-v-7d5e07c6:nth-child(1) {
+	font-size: 28rpx;
+	color: #000000;
+}
+/* 第二个 */
+.list-music-song view.data-v-7d5e07c6:nth-child(2) {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	font-size: 20rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+/* 第二个 图片 */
+.list-music-song view:nth-child(2) image.data-v-7d5e07c6 {
+	width: 32rpx;
+	height: 20rpx;
+	margin-right: 10rpx;
+}
+/* 右侧播放图标 */
+.list-music-item text.data-v-7d5e07c6 {
+	font-size: 50rpx;
+	color: #c7c7c7;
 }
 

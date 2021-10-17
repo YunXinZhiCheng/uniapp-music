@@ -42,11 +42,11 @@
 					<view class="list-music-head">
 						<text class="iconfont iconbofang"></text>
 						<text>播放全部</text>
-						<text>共100首</text>
+						<text>(共100首)</text>
 					</view>
 					<!-- 底部: 左+中+右 列表项 -->
 					<view class="list-music-item">
-						<view class="list-music-top"></view>
+						<view class="list-music-top">1</view>
 						<view class="list-music-song">
 							<view>歌曲名</view>
 							<view>
@@ -59,7 +59,7 @@
 					</view>
 					<!-- 底部: 左+中+右 列表项 -->
 					<view class="list-music-item">
-						<view class="list-music-top"></view>
+						<view class="list-music-top">2</view>
 						<view class="list-music-song">
 							<view>歌曲名</view>
 							<view>
@@ -72,7 +72,9 @@
 					</view>
 					<!-- 底部: 左+中+右 列表项 -->
 					<view class="list-music-item">
-						<view class="list-music-top"></view>
+						<!-- 左侧 -->
+						<view class="list-music-top">3</view>
+						<!-- 中间 -->
 						<view class="list-music-song">
 							<view>歌曲名</view>
 							<view>
@@ -81,6 +83,7 @@
 								歌手名-歌曲名
 							</view>
 						</view>
+						<!-- 右侧播放图标 -->
 						<text class="iconfont iconbofang"></text>
 					</view>
 				</view>
@@ -199,5 +202,79 @@
 	/* 列表分享 文本 */
 	.list-share text {
 		margin-right: 16rpx;
+	}
+
+	/* 歌单 */
+	.list-music {
+		background: #FFFFFF;
+		border-radius: 50rpx;
+		margin-top: 40rpx;
+		overflow: hidden;
+	}
+
+	/* 歌单头部 */
+	.list-music-head {
+		height: 50rpx;
+		margin: 30rpx 0 70rpx 22rpx;
+	}
+
+	.list-music-head text:nth-child(1) {
+		height: 50rpx;
+		font-size: 50rpx;
+	}
+
+	.list-music-head text:nth-child(2) {
+		font-size: 30rpx;
+		margin: 0 10rpx 0 26rpx;
+	}
+
+	.list-music-head text:nth-child(3) {
+		font-size: 26rpx;
+		color: #b2b2b2;
+	}
+
+	/* 歌单底部  */
+	.list-music-item {
+		display: flex;
+		margin: 0 32rpx 66rpx 46rpx;
+		align-items: center;
+		color: #959595;
+
+	}
+
+	.list-music-top {
+		width: 58rpx;
+		font-size: 30rpx;
+		line-height: 30rpx;
+	}
+
+	.list-music-song {
+		flex: 1;
+	}
+
+	/* 第一个 */
+	.list-music-song view:nth-child(1) {
+		font-size: 28rpx;
+		color: #000000;
+	}
+
+	/* 第二个 */
+	.list-music-song view:nth-child(2) {
+		display: flex;
+		font-size: 20rpx;
+		align-items: center;
+	}
+
+	/* 第二个 图片 */
+	.list-music-song view:nth-child(2) image {
+		width: 32rpx;
+		height: 20rpx;
+		margin-right: 10rpx;
+	}
+
+	/* 右侧播放图标 */
+	.list-music-item text {
+		font-size: 50rpx;
+		color: #c7c7c7;
 	}
 </style>
