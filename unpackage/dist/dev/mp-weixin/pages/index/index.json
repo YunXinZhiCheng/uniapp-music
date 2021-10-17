@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "uni-app",
-  "usingComponents": {}
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "musichead": "/components/musichead/musichead"
+  }
 }
