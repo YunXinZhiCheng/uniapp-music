@@ -1,13 +1,12 @@
 <template>
 	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+	 <text class="iconfont iconlike"></text>
 	</view>
 </template>
 
 <script>
+	// 字体图标引入
+	import '@/common/iconfont.css'
 	export default {
 		data() {
 			return {
