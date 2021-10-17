@@ -1,9 +1,13 @@
 <template>
 	<view class="music-head">
 		<!-- 头部图标 -->
-		<view class="music-head-icon">
-			<text class="iconfont iconzuojiantou-copy"></text> | <text class="iconfont iconshouye"></text>
+		<view class="music-head-icon" v-if="icon">
+			<!-- 返回左箭头 -->
+			<text class="iconfont iconzuojiantou-copy" @tap="handleToBack"></text> |
+			<!-- 返回首页 -->
+			<text class="iconfont iconshouye" @tap="handleToHome"></text>
 		</view>
+		<!-- 头部标题 -->
 		{{title}}
 	</view>
 </template>
@@ -17,8 +21,21 @@
 
 			};
 		},
-		// 接收属性
-		props: ['title']
+		// 接收属性: 标题，图标显示/隐藏
+		props: ['title', 'icon'],
+		// 方法
+		methods: {
+			// 返回上一级
+			handleToBack() {
+				uni.navigateBack()
+			},
+			// 返回首页
+			handleToHome() {
+				uni.navigateTo({
+					url: '/pages/index/index'
+				})
+			}
+		}
 	}
 </script>
 

@@ -15,3 +15,15 @@
 
 /*每个页面公共css */
 
+/* 通用容器 */
+.container {
+	width: 100%;
+	height: calc(100vh - 70px);
+	overflow: hidden;
+}
+
+/* 通用容器下的滚动区域 */
+.container scroll-view {
+	height: 100%;
+}
+
