@@ -120,6 +120,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var f0 = _vm._f("formatCount")(_vm.playlist.playCount)
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        f0: f0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -153,7 +163,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -243,7 +253,9 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
         trackCount: '' },
 
       // 歌单权限
-      privileges: [] };
+      privileges: [],
+      // 加载
+      isLoading: true };
 
   },
   // 注册
@@ -254,6 +266,11 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
   onLoad: function onLoad(options) {var _this = this;
     // console.log(options.listId)
 
+    // 弹窗提示
+    uni.showLoading({
+      title: '加载中...' });
+
+
 
     (0, _api.list)(options.listId).then(function (res) {
       // console.log(res)
@@ -263,10 +280,15 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
         _this.playlist = res[1].data.playlist;
         // 歌曲权限：独家与高质量
         _this.privileges = res[1].data.privileges;
+        // 加载
+        _this.isLoading = false;
+        // 加载成功后，隐藏加载提示
+        uni.hideLoading();
       }
     });
   },
   methods: {} };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

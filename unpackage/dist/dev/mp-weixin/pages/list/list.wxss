@@ -180,6 +180,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
 /* 列表头部 */
 .list-head.data-v-7d5e07c6 {
 	display: -webkit-box;
@@ -316,11 +327,6 @@
 }
 /* 第二个 */
 .list-music-song view.data-v-7d5e07c6:nth-child(2) {
-	display: -webkit-box;
-	display: -webkit-flex;
-	display: flex;
-	-webkit-flex-wrap: wrap;
-	        flex-wrap: wrap;
 	font-size: 20rpx;
 	-webkit-box-align: center;
 	-webkit-align-items: center;

@@ -5,7 +5,7 @@
 		<!-- 头部组件 -->
 		<musichead title="歌单" :icon="true" color="white"></musichead>
 		<!-- 通用容器 -->
-		<view class="container">
+		<view class="container" v-show="!isLoading">
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
 				<!-- 1.列表头部: 左侧图片+右侧信息 -->
@@ -13,7 +13,7 @@
 					<!-- 左侧图片 -->
 					<view class="list-head-img">
 						<image :src="playlist.coverImgUrl" mode=""></image>
-						<text class="iconfont iconyousanjiao">{{playlist.playCount}}</text>
+						<text class="iconfont iconyousanjiao">{{playlist.playCount | formatCount }}</text>
 					</view>
 					<!-- 右侧信息 -->
 					<view class="list-head-text">
@@ -88,7 +88,9 @@
 					trackCount: ''
 				},
 				// 歌单权限
-				privileges: []
+				privileges: [],
+				// 加载
+				isLoading: true
 			}
 		},
 		// 注册
@@ -99,7 +101,12 @@
 		onLoad(options) {
 			// console.log(options.listId)
 
-
+			// 弹窗提示
+			uni.showLoading({
+				title:'加载中...'
+			})
+			
+			
 			list(options.listId).then(res => {
 				// console.log(res)
 				// 判断
@@ -108,6 +115,10 @@
 					this.playlist = res[1].data.playlist
 					// 歌曲权限：独家与高质量
 					this.privileges = res[1].data.privileges
+					// 加载
+					this.isLoading = false
+					// 加载成功后，隐藏加载提示
+					uni.hideLoading()
 				}
 			})
 		},
@@ -263,8 +274,6 @@
 
 	/* 第二个 */
 	.list-music-song view:nth-child(2) {
-		display: flex;
-		flex-wrap: wrap;
 		font-size: 20rpx;
 		align-items: center;
 		/* 单行溢出隐藏 */
