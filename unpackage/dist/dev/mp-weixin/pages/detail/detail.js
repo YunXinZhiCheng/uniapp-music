@@ -298,39 +298,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -345,9 +312,12 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
 {
   data: function data() {
     return {
+      // 音乐信息
       songDetail: {
-        al: {} } };
+        al: {} },
 
+      // 相似歌曲
+      songSimi: [] };
 
   },
   // 注册
@@ -365,10 +335,16 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
   methods: {
     // 
     getMusic: function getMusic(songId) {var _this = this;
-      Promise.all([(0, _api.songDetail)(songId)]).then(function (res) {
+      Promise.all([(0, _api.songDetail)(songId), (0, _api.songSimi)(songId)]).then(function (res) {
         // console.log(res)
+
+        // 音乐信息数据
         if (res[0][1].data.code == '200') {
           _this.songDetail = res[0][1].data.songs[0];
+        }
+        // 相似歌曲数据
+        if (res[1][1].data.code == '200') {
+          _this.songSimi = res[1][1].data.songs;
         }
       });
     } } };exports.default = _default;

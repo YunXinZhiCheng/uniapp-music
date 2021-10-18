@@ -33,65 +33,32 @@
 					<!-- 头部 -->
 					<view class="detail-like-head">喜欢这首歌的人也听</view>
 					<!-- 列表项: 左中右-->
-					<view class="detail-like-item">
+					<view class="detail-like-item" v-for="(item,index) in songSimi" :key="index">
 						<!-- 左 歌曲封面-->
 						<view class="detail-like-img">
-							<image src="../../static/logo.png" mode=""></image>
+							<image :src="item.album.picUrl" mode=""></image>
 						</view>
 						<!-- 中 歌曲信息 -->
 						<view class="detail-like-song">
-							<view>刘德华</view>
+							<view>{{item.name}}</view>
 							<view>
-								<image src="../../static/dujia.png" mode=""></image>
-								<image src="../../static/sq.png" mode=""></image>
-								忘情水 - 刘德华
+								<image v-if="item.privilege.flag>60&&item.privilege.flag<70"
+									src="../../static/dujia.png" mode=""></image>
+								<image v-if="item.privilege.maxbr==999000" src="../../static/sq.png" mode=""></image>
+								{{item.album.artists[0].name}} - {{item.name}}
 							</view>
 						</view>
 						<!-- 右 播放按钮 -->
 						<text class="iconfont iconbofang"></text>
 					</view>
-					<!-- 列表项: 左中右-->
-					<view class="detail-like-item">
-						<!-- 左 歌曲封面-->
-						<view class="detail-like-img">
-							<image src="../../static/logo.png" mode=""></image>
-						</view>
-						<!-- 中 歌曲信息 -->
-						<view class="detail-like-song">
-							<view>刘德华</view>
-							<view>
-								<image src="../../static/dujia.png" mode=""></image>
-								<image src="../../static/sq.png" mode=""></image>
-								忘情水 - 刘德华
-							</view>
-						</view>
-						<!-- 右 播放按钮 -->
-						<text class="iconfont iconbofang"></text>
-					</view>
-					<!-- 列表项: 左中右-->
-					<view class="detail-like-item">
-						<!-- 左 歌曲封面-->
-						<view class="detail-like-img">
-							<image src="../../static/logo.png" mode=""></image>
-						</view>
-						<!-- 中 歌曲信息 -->
-						<view class="detail-like-song">
-							<view>刘德华</view>
-							<view>
-								<image src="../../static/dujia.png" mode=""></image>
-								<image src="../../static/sq.png" mode=""></image>
-								忘情水 - 刘德华
-							</view>
-						</view>
-						<!-- 右 播放按钮 -->
-						<text class="iconfont iconbofang"></text>
-					</view>
+
+
 				</view>
 
 				<!-- 4.精彩评论 -->
 				<view class="detail-comment">
 					<!-- 头部 -->
-					<view class="detail-comment-head">精彩评</view>
+					<view class="detail-comment-head">精彩评论</view>
 					<!-- 列表项 -->
 					<view class="detail-comment-item">
 						<!-- 1.评论图片 -->
@@ -190,9 +157,12 @@
 	export default {
 		data() {
 			return {
+				// 音乐信息
 				songDetail: {
 					al: {}
-				}
+				},
+				// 相似歌曲
+				songSimi: []
 			}
 		},
 		// 注册
@@ -210,10 +180,16 @@
 		methods: {
 			// 
 			getMusic(songId) {
-				Promise.all([songDetail(songId)]).then(res => {
+				Promise.all([songDetail(songId), songSimi(songId)]).then(res => {
 					// console.log(res)
+
+					// 音乐信息数据
 					if (res[0][1].data.code == '200') {
 						this.songDetail = res[0][1].data.songs[0]
+					}
+					// 相似歌曲数据
+					if (res[1][1].data.code == '200') {
+						this.songSimi = res[1][1].data.songs
 					}
 				})
 			}
