@@ -224,34 +224,6 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -266,9 +238,12 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
       playlist: {
         coverImgUrl: '',
         creator: {
-          avatarUrl: '' } } };
+          avatarUrl: '' },
 
+        trackCount: '' },
 
+      // 歌单权限
+      privileges: [] };
 
   },
   // 注册
@@ -284,7 +259,10 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
       // console.log(res)
       // 判断
       if (res[1].data.code == '200') {
+        // 歌曲数据
         _this.playlist = res[1].data.playlist;
+        // 歌曲权限：独家与高质量
+        _this.privileges = res[1].data.privileges;
       }
     });
   },

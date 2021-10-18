@@ -42,48 +42,20 @@
 					<view class="list-music-head">
 						<text class="iconfont iconbofang"></text>
 						<text>播放全部</text>
-						<text>(共100首)</text>
+						<text>(共{{playlist.trackCount}}首)</text>
 					</view>
 					<!-- 底部: 左+中+右 列表项 -->
-					<view class="list-music-item">
-						<view class="list-music-top">1</view>
+					<view class="list-music-item" v-for="(item,index) in playlist.tracks">
+						<view class="list-music-top">{{index+1}}</view>
 						<view class="list-music-song">
-							<view>歌曲名</view>
+							<view>{{item.name}}</view>
 							<view>
-								<image src="../../static/dujia.png" mode=""></image>
-								<image src="../../static/sq.png" mode=""></image>
-								歌手名-歌曲名
+								<image v-if="privileges[index].flag > 60 && privileges[index].flag < 70"
+									src="../../static/dujia.png" mode=""></image>
+								<image v-if="privileges[index].maxbr==999000" src="../../static/sq.png" mode=""></image>
+								{{item.ar[0].name}}-{{item.name}}
 							</view>
 						</view>
-						<text class="iconfont iconbofang"></text>
-					</view>
-					<!-- 底部: 左+中+右 列表项 -->
-					<view class="list-music-item">
-						<view class="list-music-top">2</view>
-						<view class="list-music-song">
-							<view>歌曲名</view>
-							<view>
-								<image src="../../static/dujia.png" mode=""></image>
-								<image src="../../static/sq.png" mode=""></image>
-								歌手名-歌曲名
-							</view>
-						</view>
-						<text class="iconfont iconbofang"></text>
-					</view>
-					<!-- 底部: 左+中+右 列表项 -->
-					<view class="list-music-item">
-						<!-- 左侧 -->
-						<view class="list-music-top">3</view>
-						<!-- 中间 -->
-						<view class="list-music-song">
-							<view>歌曲名</view>
-							<view>
-								<image src="../../static/dujia.png" mode=""></image>
-								<image src="../../static/sq.png" mode=""></image>
-								歌手名-歌曲名
-							</view>
-						</view>
-						<!-- 右侧播放图标 -->
 						<text class="iconfont iconbofang"></text>
 					</view>
 				</view>
@@ -112,8 +84,11 @@
 					coverImgUrl: '',
 					creator: {
 						avatarUrl: ''
-					}
-				}
+					},
+					trackCount: ''
+				},
+				// 歌单权限
+				privileges: []
 			}
 		},
 		// 注册
@@ -129,7 +104,10 @@
 				// console.log(res)
 				// 判断
 				if (res[1].data.code == '200') {
+					// 歌曲数据
 					this.playlist = res[1].data.playlist
+					// 歌曲权限：独家与高质量
+					this.privileges = res[1].data.privileges
 				}
 			})
 		},
@@ -276,13 +254,24 @@
 	.list-music-song view:nth-child(1) {
 		font-size: 28rpx;
 		color: #000000;
+		/* 单行溢出隐藏 */
+		width: 70vw;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	/* 第二个 */
 	.list-music-song view:nth-child(2) {
 		display: flex;
+		flex-wrap: wrap;
 		font-size: 20rpx;
 		align-items: center;
+		/* 单行溢出隐藏 */
+		width: 60vw;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	/* 第二个 图片 */
@@ -290,6 +279,7 @@
 		width: 32rpx;
 		height: 20rpx;
 		margin-right: 10rpx;
+		flex-shrink: 0;
 	}
 
 	/* 右侧播放图标 */
