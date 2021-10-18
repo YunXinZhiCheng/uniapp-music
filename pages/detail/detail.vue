@@ -8,6 +8,14 @@
 		<view class="container">
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
+				<view class="detail-play">
+					<!-- 图片 播放封面-->
+					<image src="../../static/wangyiyunyinyue.png"></image>
+					<!-- 图标 暂停和播放-->
+					<text class="iconfont iconpause"></text>
+					<!-- 图片 播放摇杆 -->
+					<view></view>
+				</view>
 			</scroll-view>
 		</view>
 	</view>
@@ -25,10 +33,11 @@
 
 			}
 		},
+		// 注册
 		components: {
 			musichead
 		},
-		
+
 		// 拿到其它页面跳转传过来的id
 		onLoad(options) {
 			console.log(options.songId)
@@ -40,5 +49,62 @@
 </script>
 
 <style scoped>
+	.detail-play {
+		width: 580rpx;
+		height: 580rpx;
+		/* 背景图片 绝对路径 */
+		background: url(~@/static/disc.png);
+		background-size: cover;
+		margin: 214rpx auto 0 auto;
 
+		position: relative;
+	}
+
+	.detail-play image {
+		width: 370rpx;
+		height: 370rpx;
+		border-radius: 50%;
+		/* 绝对定位  居中*/
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+
+
+
+	}
+
+	/* 图标 */
+	.detail-play text {
+		width: 100rpx;
+		height: 100rpx;
+		font-size: 100rpx;
+		color: #FFFFFF;
+		/* 绝对定位  居中*/
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;
+
+
+	}
+
+	/* 摇杆 */
+	.detail-play view {
+		width: 230rpx;
+		height: 360rpx;
+		background: url(~@/static/needle.png);
+		background-size: cover;
+		/* 绝对定位  左右居中*/
+		position: absolute;
+		left: 100rpx;
+		right: 0;
+		top: -200rpx;
+		margin: auto;
+
+	}
 </style>
