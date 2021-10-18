@@ -40,3 +40,40 @@ export function list(listId) {
 		method: 'GET'
 	})
 }
+
+// 详情页音乐信息接口
+export function songDetail(songId) {
+	return uni.request({
+		url: `${baseUrl}/song/detail?ids=${songId}`,
+		method: 'GET'
+	})
+}
+
+// 详情页相似歌曲接口
+export function songSimi(songId) {
+	return uni.request({
+		url: `${baseUrl}/simi/song?id=${songId}`,
+		method: 'GET'
+	})
+}
+// 详情页精彩评论接口
+export function songComment(songId) {
+	return uni.request({
+		url: `${baseUrl}/comment/music?id=${songId}`,
+		method: 'GET'
+	})
+}
+// 详情页歌词接口
+export function songLyric(songId) {
+	return uni.request({
+		url: `${baseUrl}/lyric?id=${songId}`,
+		method: 'GET'
+	})
+}
+// 详情页音乐播放接口
+export function songUrl(songId) {
+	return uni.request({
+		url: `${baseUrl}/song/url?id=${songId}`,
+		method: 'GET'
+	})
+}

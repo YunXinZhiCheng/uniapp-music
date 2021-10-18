@@ -1,9 +1,10 @@
 <template>
 	<view class="detail">
 		<!-- 背景图 -->
-		<view class="fixbg" :style="{'background-image': 'url(/static/wangyiyunyinyue.png)'}"></view>
+		<view class="fixbg" :style="{'background-image': 'url('+songDetail.al.picUrl+')'}"></view>
 		<!-- 头部组件 -->
-		<musichead title="歌单" :icon="true" color="white"></musichead>
+		<musichead :title="songDetail.name" :icon="true" color="white"></musichead>
+
 		<!-- 通用容器 -->
 		<view class="container">
 			<!-- 滚动区域 -->
@@ -11,7 +12,7 @@
 				<!-- 1.播放封面 -->
 				<view class="detail-play">
 					<!-- 图片 歌曲封面-->
-					<image src="../../static/wangyiyunyinyue.png"></image>
+					<image :src="songDetail.al.picUrl"></image>
 					<!-- 图标 暂停和播放-->
 					<text class="iconfont iconpause"></text>
 					<!-- 图片 播放摇杆 -->
@@ -115,7 +116,7 @@
 							<view class="detail-comment-text">测试文字测试文字</view>
 						</view>
 					</view>
-					
+
 					<!-- 列表项 -->
 					<view class="detail-comment-item">
 						<!-- 1.评论图片 -->
@@ -140,7 +141,7 @@
 							<view class="detail-comment-text">测试文字测试文字</view>
 						</view>
 					</view>
-					
+
 					<!-- 列表项 -->
 					<view class="detail-comment-item">
 						<!-- 1.评论图片 -->
@@ -177,10 +178,21 @@
 	// 字体图标样式引入
 	import '@/common/iconfont.css'
 
+	// 详情页音乐信息接口引入
+	import {
+		songDetail,
+		songSimi,
+		songComment,
+		songLyric,
+		songUrl
+	} from '../../common/api.js'
+
 	export default {
 		data() {
 			return {
-
+				songDetail: {
+					al: {}
+				}
 			}
 		},
 		// 注册
@@ -191,9 +203,20 @@
 		// 拿到其它页面跳转传过来的id
 		onLoad(options) {
 			// console.log(options.songId)
+
+			// 
+			this.getMusic(options.songId)
 		},
 		methods: {
-
+			// 
+			getMusic(songId) {
+				Promise.all([songDetail(songId)]).then(res => {
+					// console.log(res)
+					if (res[0][1].data.code == '200') {
+						this.songDetail = res[0][1].data.songs[0]
+					}
+				})
+			}
 		}
 	}
 </script>

@@ -8180,7 +8180,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;exports.list = list;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;exports.list = list;exports.songDetail = songDetail;exports.songSimi = songSimi;exports.songComment = songComment;exports.songLyric = songLyric;exports.songUrl = songUrl;
 var _config = __webpack_require__(/*! ./config.js */ 19); // 引入
 
 
@@ -8219,6 +8219,43 @@ function topList() {
 function list(listId) {
   return uni.request({
     url: "".concat(_config.baseUrl, "/top/list/?idx=").concat(listId),
+    method: 'GET' });
+
+}
+
+// 详情页音乐信息接口
+function songDetail(songId) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/song/detail?ids=").concat(songId),
+    method: 'GET' });
+
+}
+
+// 详情页相似歌曲接口
+function songSimi(songId) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/simi/song?id=").concat(songId),
+    method: 'GET' });
+
+}
+// 详情页精彩评论接口
+function songComment(songId) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/comment/music?id=").concat(songId),
+    method: 'GET' });
+
+}
+// 详情页歌词接口
+function songLyric(songId) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/lyric?id=").concat(songId),
+    method: 'GET' });
+
+}
+// 详情页音乐播放接口
+function songUrl(songId) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/song/url?id=").concat(songId),
     method: 'GET' });
 
 }

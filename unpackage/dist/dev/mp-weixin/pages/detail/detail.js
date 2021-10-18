@@ -330,11 +330,23 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
-__webpack_require__(/*! @/common/iconfont.css */ 17);var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 30));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+__webpack_require__(/*! @/common/iconfont.css */ 17);
+
+
+var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 30));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
 
 {
   data: function data() {
-    return {};
+    return {
+      songDetail: {
+        al: {} } };
 
 
   },
@@ -346,8 +358,20 @@ __webpack_require__(/*! @/common/iconfont.css */ 17);var musichead = function mu
   // 拿到其它页面跳转传过来的id
   onLoad: function onLoad(options) {
     // console.log(options.songId)
+
+    // 
+    this.getMusic(options.songId);
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    // 
+    getMusic: function getMusic(songId) {var _this = this;
+      Promise.all([(0, _api.songDetail)(songId)]).then(function (res) {
+        // console.log(res)
+        if (res[0][1].data.code == '200') {
+          _this.songDetail = res[0][1].data.songs[0];
+        }
+      });
+    } } };exports.default = _default;
 
 /***/ }),
 
