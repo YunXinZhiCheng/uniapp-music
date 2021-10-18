@@ -17,7 +17,7 @@
 					<!-- 图片 播放摇杆 -->
 					<view></view>
 				</view>
-				
+
 				<!-- 2.歌词 -->
 				<view class="detail-lyric">
 					<view class="detail-lyric-wrap">
@@ -26,6 +26,67 @@
 						<view class="detail-lyric-item active">测试文字测试文字</view>
 						<view class="detail-lyric-item">测试文字测试文字测试文字</view>
 					</view>
+				</view>
+				<!-- 3.相似歌曲 -->
+				<view class="detail-like">
+					<!-- 头部 -->
+					<view class="detail-like-head">喜欢这首歌的人也听</view>
+					<!-- 列表项: 左中右-->
+					<view class="detail-like-item">
+						<!-- 左 歌曲封面-->
+						<view class="detail-like-img">
+							<image src="../../static/logo.png" mode=""></image>
+						</view>
+						<!-- 中 歌曲信息 -->
+						<view class="detail-like-song">
+							<view>刘德华</view>
+							<view>
+								<image src="../../static/dujia.png" mode=""></image>
+								<image src="../../static/sq.png" mode=""></image>
+								忘情水 - 刘德华
+							</view>
+						</view>
+						<!-- 右 播放按钮 -->
+						<text class="iconfont iconbofang"></text>
+					</view>
+					<!-- 列表项: 左中右-->
+					<view class="detail-like-item">
+						<!-- 左 歌曲封面-->
+						<view class="detail-like-img">
+							<image src="../../static/logo.png" mode=""></image>
+						</view>
+						<!-- 中 歌曲信息 -->
+						<view class="detail-like-song">
+							<view>刘德华</view>
+							<view>
+								<image src="../../static/dujia.png" mode=""></image>
+								<image src="../../static/sq.png" mode=""></image>
+								忘情水 - 刘德华
+							</view>
+						</view>
+						<!-- 右 播放按钮 -->
+						<text class="iconfont iconbofang"></text>
+					</view>
+					<!-- 列表项: 左中右-->
+					<view class="detail-like-item">
+						<!-- 左 歌曲封面-->
+						<view class="detail-like-img">
+							<image src="../../static/logo.png" mode=""></image>
+						</view>
+						<!-- 中 歌曲信息 -->
+						<view class="detail-like-song">
+							<view>刘德华</view>
+							<view>
+								<image src="../../static/dujia.png" mode=""></image>
+								<image src="../../static/sq.png" mode=""></image>
+								忘情水 - 刘德华
+							</view>
+						</view>
+						<!-- 右 播放按钮 -->
+						<text class="iconfont iconbofang"></text>
+					</view>
+
+
 				</view>
 			</scroll-view>
 		</view>
@@ -51,7 +112,7 @@
 
 		// 拿到其它页面跳转传过来的id
 		onLoad(options) {
-			console.log(options.songId)
+			// console.log(options.songId)
 		},
 		methods: {
 
@@ -118,9 +179,9 @@
 		margin: auto;
 
 	}
-	
+
 	/* 歌词 */
-	.detail-lyric{
+	.detail-lyric {
 		font-size: 32rpx;
 		line-height: 82rpx;
 		height: 246rpx;
@@ -128,17 +189,72 @@
 		overflow: hidden;
 		color: #6f6e73;
 	}
-	.detail-lyric-wrap{
-		
-	}
+
+	.detail-lyric-wrap {}
+
 	/* 歌词项 */
-	.detail-lyric-item{
+	.detail-lyric-item {
 		height: 82rpx;
 	}
+
 	/* 歌词项 选中状态 */
-	.detail-lyric-item.active{
+	.detail-lyric-item.active {
 		color: #FFFFFF;
 	}
+
+	/* 相似歌曲 */
+	.detail-like {
+		margin: 0 30rpx;
+	}
+	/* 相似歌曲 头部 */
+	.detail-like-head {
+		font-size: 36rpx;
+		color: #FFFFFF;
+		margin: 50rpx 0;
+	}
+    /* 相似歌曲 列表项 */
+	.detail-like-item {
+		display: flex;
+		align-items: center;
+		margin-bottom: 28rpx;
+	}
+
+	.detail-like-img {
+		width: 82rpx;
+		height: 82rpx;
+		border-radius: 20rpx;
+		overflow: hidden;
+		margin-right: 20rpx;
+	}
+
+	.detail-like-img image {
+		width: 100%;
+		height: 100%;
+
+	}
+
+	.detail-like-song {
+		flex: 1;
+		color: #c6c2bf;
+	}
+	.detail-like-song view:nth-child(1){
+		font-size: 28rpx;
+		color: #FFFFFF;
+		margin-bottom: 12prx;
+	}
 	
+	.detail-like-song view:nth-child(2){
+		font-size: 22rpx;
+	}
 	
+	.detail-like-song image{
+		width: 26rpx;
+		height: 20rpx;
+		margin-right: 10rpx;
+	}
+
+	.detail-like-item text {
+		font-size: 50rpx;
+		color: #C6C2BF;
+	}
 </style>

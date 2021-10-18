@@ -39,8 +39,8 @@
 	background-size: cover;
 	background-position: center 0;
 	/* 模糊效果 */
-	-webkit-filter: blur(10px);
-	        filter: blur(10px);
+	-webkit-filter: blur(20px);
+	        filter: blur(20px);
 	/* 缩放效果 */
 	-webkit-transform: scale(1.2);
 	        transform: scale(1.2);

@@ -39,7 +39,7 @@
 		background-size: cover;
 		background-position: center 0;
 		/* 模糊效果 */
-		filter: blur(10px);
+		filter: blur(20px);
 		/* 缩放效果 */
 		transform: scale(1.2);
 	}
