@@ -85,8 +85,86 @@
 						<!-- 右 播放按钮 -->
 						<text class="iconfont iconbofang"></text>
 					</view>
+				</view>
 
-
+				<!-- 4.精彩评论 -->
+				<view class="detail-comment">
+					<!-- 头部 -->
+					<view class="detail-comment-head">精彩评</view>
+					<!-- 列表项 -->
+					<view class="detail-comment-item">
+						<!-- 1.评论图片 -->
+						<view class="detail-comment-img">
+							<image src="../../static/logo.png" mode=""></image>
+						</view>
+						<!-- 2.评论内容 -->
+						<view class="detail-comment-content">
+							<!-- 2.1评论标题 -->
+							<view class="detail-comment-title">
+								<!-- 评论名称 -->
+								<view class="detail-comment-name">
+									<view>陨星之城</view>
+									<view>2021年10月1日</view>
+								</view>
+								<!-- 评论点赞 -->
+								<view class="detail-comment-like">6666
+									<text class="iconfont iconlike"></text>
+								</view>
+							</view>
+							<!-- 2.2评论文本 -->
+							<view class="detail-comment-text">测试文字测试文字</view>
+						</view>
+					</view>
+					
+					<!-- 列表项 -->
+					<view class="detail-comment-item">
+						<!-- 1.评论图片 -->
+						<view class="detail-comment-img">
+							<image src="../../static/logo.png" mode=""></image>
+						</view>
+						<!-- 2.评论内容 -->
+						<view class="detail-comment-content">
+							<!-- 2.1评论标题 -->
+							<view class="detail-comment-title">
+								<!-- 评论名称 -->
+								<view class="detail-comment-name">
+									<view>陨星之城</view>
+									<view>2021年10月1日</view>
+								</view>
+								<!-- 评论点赞 -->
+								<view class="detail-comment-like">6666
+									<text class="iconfont iconlike"></text>
+								</view>
+							</view>
+							<!-- 2.2评论文本 -->
+							<view class="detail-comment-text">测试文字测试文字</view>
+						</view>
+					</view>
+					
+					<!-- 列表项 -->
+					<view class="detail-comment-item">
+						<!-- 1.评论图片 -->
+						<view class="detail-comment-img">
+							<image src="../../static/logo.png" mode=""></image>
+						</view>
+						<!-- 2.评论内容 -->
+						<view class="detail-comment-content">
+							<!-- 2.1评论标题 -->
+							<view class="detail-comment-title">
+								<!-- 评论名称 -->
+								<view class="detail-comment-name">
+									<view>陨星之城</view>
+									<view>2021年10月1日</view>
+								</view>
+								<!-- 评论点赞 -->
+								<view class="detail-comment-like">6666
+									<text class="iconfont iconlike"></text>
+								</view>
+							</view>
+							<!-- 2.2评论文本 -->
+							<view class="detail-comment-text">测试文字测试文字</view>
+						</view>
+					</view>
 				</view>
 			</scroll-view>
 		</view>
@@ -206,13 +284,15 @@
 	.detail-like {
 		margin: 0 30rpx;
 	}
+
 	/* 相似歌曲 头部 */
 	.detail-like-head {
 		font-size: 36rpx;
 		color: #FFFFFF;
 		margin: 50rpx 0;
 	}
-    /* 相似歌曲 列表项 */
+
+	/* 相似歌曲 列表项 */
 	.detail-like-item {
 		display: flex;
 		align-items: center;
@@ -237,17 +317,18 @@
 		flex: 1;
 		color: #c6c2bf;
 	}
-	.detail-like-song view:nth-child(1){
+
+	.detail-like-song view:nth-child(1) {
 		font-size: 28rpx;
 		color: #FFFFFF;
 		margin-bottom: 12prx;
 	}
-	
-	.detail-like-song view:nth-child(2){
+
+	.detail-like-song view:nth-child(2) {
 		font-size: 22rpx;
 	}
-	
-	.detail-like-song image{
+
+	.detail-like-song image {
 		width: 26rpx;
 		height: 20rpx;
 		margin-right: 10rpx;
@@ -256,5 +337,71 @@
 	.detail-like-item text {
 		font-size: 50rpx;
 		color: #C6C2BF;
+	}
+
+	/* 精彩评论 */
+	.detail-comment {
+		margin: 0 30rpx;
+	}
+
+	/* 精彩评论 头部 */
+	.detail-comment-head {
+		font-size: 36rpx;
+		color: #FFFFFF;
+		margin: 50rpx 0;
+	}
+
+	/* 精彩评论 列表项 */
+	.detail-comment-item {
+		margin-bottom: 28rpx;
+		display: flex;
+
+	}
+
+	.detail-comment-img {
+		width: 64rpx;
+		height: 64rpx;
+		border-radius: 50%;
+		overflow: hidden;
+		margin-right: 18rpx;
+	}
+
+	.detail-comment-img image {
+		width: 100%;
+		height: 100%;
+	}
+
+	.detail-comment-content {
+		flex: 1;
+		color: #cbcacf;
+	}
+
+	.detail-comment-title {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.detail-comment-name {}
+
+	.detail-comment-name view:nth-child(1) {
+		font-size: 26rpx;
+	}
+
+	.detail-comment-name view:nth-child(2) {
+		font-size: 20rpx;
+	}
+
+	.detail-comment-like {
+		font-size: 28rpx;
+	}
+
+	.detail-comment-text {
+		font-size: 28rpx;
+		line-height: 40rpx;
+		color: #FFFFFF;
+		margin-top: 20rpx;
+		border-bottom: 1px solid #e0e0e0;
+		padding-bottom: 40rpx;
+
 	}
 </style>
