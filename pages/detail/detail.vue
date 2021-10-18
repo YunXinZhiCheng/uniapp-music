@@ -8,13 +8,24 @@
 		<view class="container">
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
+				<!-- 1.播放封面 -->
 				<view class="detail-play">
-					<!-- 图片 播放封面-->
+					<!-- 图片 歌曲封面-->
 					<image src="../../static/wangyiyunyinyue.png"></image>
 					<!-- 图标 暂停和播放-->
 					<text class="iconfont iconpause"></text>
 					<!-- 图片 播放摇杆 -->
 					<view></view>
+				</view>
+				
+				<!-- 2.歌词 -->
+				<view class="detail-lyric">
+					<view class="detail-lyric-wrap">
+						<!-- 歌词项 -->
+						<view class="detail-lyric-item">测试文字测试文字</view>
+						<view class="detail-lyric-item active">测试文字测试文字</view>
+						<view class="detail-lyric-item">测试文字测试文字测试文字</view>
+					</view>
 				</view>
 			</scroll-view>
 		</view>
@@ -107,4 +118,27 @@
 		margin: auto;
 
 	}
+	
+	/* 歌词 */
+	.detail-lyric{
+		font-size: 32rpx;
+		line-height: 82rpx;
+		height: 246rpx;
+		text-align: center;
+		overflow: hidden;
+		color: #6f6e73;
+	}
+	.detail-lyric-wrap{
+		
+	}
+	/* 歌词项 */
+	.detail-lyric-item{
+		height: 82rpx;
+	}
+	/* 歌词项 选中状态 */
+	.detail-lyric-item.active{
+		color: #FFFFFF;
+	}
+	
+	
 </style>

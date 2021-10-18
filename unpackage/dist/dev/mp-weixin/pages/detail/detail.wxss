@@ -113,3 +113,27 @@
 	margin: auto;
 }
 
+/* 歌词 */
+.detail-lyric.data-v-3e159eb4{
+	font-size: 32rpx;
+	line-height: 82rpx;
+	height: 246rpx;
+	text-align: center;
+	overflow: hidden;
+	color: #6f6e73;
+}
+.detail-lyric-wrap.data-v-3e159eb4{
+}
+
+/* 歌词项 */
+.detail-lyric-item.data-v-3e159eb4{
+	height: 82rpx;
+}
+
+/* 歌词项 选中状态 */
+.detail-lyric-item.active.data-v-3e159eb4{
+	color: #FFFFFF;
+}
+
+
+
