@@ -45,7 +45,8 @@
 						<text>(共{{playlist.trackCount}}首)</text>
 					</view>
 					<!-- 底部: 左+中+右 列表项 -->
-					<view class="list-music-item" v-for="(item,index) in playlist.tracks">
+					<view class="list-music-item" v-for="(item,index) in playlist.tracks"
+						@tap="handleToDetail(item.id)">
 						<view class="list-music-top">{{index+1}}</view>
 						<view class="list-music-song">
 							<view>{{item.name}}</view>
@@ -103,10 +104,10 @@
 
 			// 弹窗提示
 			uni.showLoading({
-				title:'加载中...'
+				title: '加载中...'
 			})
-			
-			
+
+
 			list(options.listId).then(res => {
 				// console.log(res)
 				// 判断
@@ -123,7 +124,12 @@
 			})
 		},
 		methods: {
-
+			// 跳转到详情页
+			handleToDetail(songId) {
+				uni.navigateTo({
+					url: '/pages/detail/detail?songId=' + songId
+				})
+			}
 		}
 	}
 </script>

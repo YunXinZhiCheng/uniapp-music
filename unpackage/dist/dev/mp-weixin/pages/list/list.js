@@ -234,6 +234,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -287,7 +288,13 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
       }
     });
   },
-  methods: {} };exports.default = _default;
+  methods: {
+    // 跳转到详情页
+    handleToDetail: function handleToDetail(songId) {
+      uni.navigateTo({
+        url: '/pages/detail/detail?songId=' + songId });
+
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
