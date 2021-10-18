@@ -49,7 +49,8 @@
 	export default {
 		data() {
 			return {
-				topList: [] // 分类数组
+				topList: [], // 分类数组
+
 			}
 		},
 		// 注册
@@ -72,7 +73,8 @@
 					// 传参地址：字符串拼接
 					url: '/pages/list/list?listId=' + listId
 				})
-			}
+			},
+
 		}
 	}
 </script>

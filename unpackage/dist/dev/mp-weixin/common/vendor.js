@@ -8180,12 +8180,12 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;exports.list = list;
 var _config = __webpack_require__(/*! ./config.js */ 19); // 引入
 
 
 
-// 分类接口
+// 首页分类接口
 function topList() {
   // 列表idx
   var listIds = ['3', '0', '2', '1']; // 对应顺序
@@ -8200,6 +8200,7 @@ function topList() {
 
         // 数组数据
         var result = res.data.list;
+
         // 数组方法：获取前4项
         result.length = 4;
         // 数组遍历：
@@ -8211,6 +8212,14 @@ function topList() {
       } });
 
   });
+
+}
+
+// 歌曲列表页头部接口
+function list(listId) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/top/list/?idx=").concat(listId),
+    method: 'GET' });
 
 }
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
@@ -8225,7 +8234,8 @@ function topList() {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.baseUrl = void 0; // 配置
-var baseUrl = 'https://lyccode.vercel.app';exports.baseUrl = baseUrl;
+// export const baseUrl = 'https://lyccode.vercel.app'
+var baseUrl = 'http://localhost:3000';exports.baseUrl = baseUrl;
 
 /***/ })
 ]]);

@@ -3,7 +3,7 @@ import {
 	baseUrl
 } from './config.js'
 
-// 分类接口
+// 首页分类接口
 export function topList() {
 	// 列表idx
 	let listIds = ['3', '0', '2', '1'] // 对应顺序
@@ -18,6 +18,7 @@ export function topList() {
 
 				// 数组数据
 				let result = res.data.list
+
 				// 数组方法：获取前4项
 				result.length = 4
 				// 数组遍历：
@@ -30,4 +31,12 @@ export function topList() {
 		})
 	})
 
+}
+
+// 歌曲列表页头部接口
+export function list(listId) {
+	return uni.request({
+		url: `${baseUrl}/top/list/?idx=${listId}`,
+		method: 'GET'
+	})
 }

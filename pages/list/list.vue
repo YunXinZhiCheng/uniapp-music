@@ -1,7 +1,7 @@
 <template>
 	<view class="list">
 		<!-- 背景图 -->
-		<view class="fixbg"></view>
+		<view class="fixbg" :style="{'background-image': 'url('+playlist.coverImgUrl+')'}"></view>
 		<!-- 头部组件 -->
 		<musichead title="歌单" :icon="true" color="white"></musichead>
 		<!-- 通用容器 -->
@@ -12,17 +12,17 @@
 				<view class="list-head">
 					<!-- 左侧图片 -->
 					<view class="list-head-img">
-						<image src="../../static/wangyiyunyinyue.png" mode=""></image>
-						<text class="iconfont iconyousanjiao">30亿</text>
+						<image :src="playlist.coverImgUrl" mode=""></image>
+						<text class="iconfont iconyousanjiao">{{playlist.playCount}}</text>
 					</view>
 					<!-- 右侧信息 -->
 					<view class="list-head-text">
-						<view>测试文字</view>
+						<view>{{playlist.name}}</view>
 						<view>
-							<image src="../../static/wangyiyunyinyue.png" mode="">测试文字</image>
+							<image :src="playlist.creator.avatarUrl" mode="">{{playlist.creator.nickname}}</image>
 						</view>
 						<view>
-							测试文字测试文字测试文字测试文字测试文字
+							{{playlist.description}}
 						</view>
 					</view>
 
@@ -99,19 +99,39 @@
 	// 字体图标样式引入
 	import '@/common/iconfont.css'
 
+	// 列表头部接口引入
+	import {
+		list
+	} from '../../common/api.js'
+
 	export default {
 		data() {
 			return {
-
+				// 列表头部
+				playlist: {
+					coverImgUrl: '',
+					creator: {
+						avatarUrl: ''
+					}
+				}
 			}
 		},
 		// 注册
 		components: {
 			musichead
 		},
+		// list接口是在onLoad()当中调用的,接收上一个页面传递过来的ID
 		onLoad(options) {
-			// 测试传过来的列表listId
-			// console.log(options.listId) // 顺序 3 0 2 1
+			// console.log(options.listId)
+
+
+			list(options.listId).then(res => {
+				// console.log(res)
+				// 判断
+				if (res[1].data.code == '200') {
+					this.playlist = res[1].data.playlist
+				}
+			})
 		},
 		methods: {
 
