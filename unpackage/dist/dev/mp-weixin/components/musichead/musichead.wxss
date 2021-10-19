@@ -68,4 +68,9 @@
 	-webkit-justify-content: space-evenly;
 	        justify-content: space-evenly;
 }
+.music-head-iconblack.data-v-e0b6e5e0{
+	color: #000000;
+	border: 1px solid #eaeaea;
+	background: #FFFFFF;
+}
 

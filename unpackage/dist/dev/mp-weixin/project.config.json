@@ -40,6 +40,12 @@
           "query": "songId=1886371885",
           "id": 1,
           "pathName": "pages/detail/detail"
+        },
+        {
+          "name": "search",
+          "query": "",
+          "id": 2,
+          "pathName": "pages/search/search"
         }
       ]
     }

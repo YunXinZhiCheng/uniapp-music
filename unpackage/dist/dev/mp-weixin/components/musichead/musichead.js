@@ -138,7 +138,7 @@ var _default =
 
   },
   // 接收属性: 标题，图标显示/隐藏，颜色
-  props: ['title', 'icon', 'color'],
+  props: ['title', 'icon', 'color', 'iconblack'],
   // 方法
   methods: {
     // 返回上一级

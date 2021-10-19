@@ -1,0 +1,1 @@
+<view class="search"><musichead vue-id="50cad900-1" title="搜索" icon="{{true}}" iconblack="{{true}}" bind:__l="__l"></musichead><view class="container"><scroll-view scroll-y="true"><view class="search-search"><text class="iconfont iconsearch"></text><input type="text" placeholder="搜索歌曲"/><text class="iconfont iconguanbi"></text></view></scroll-view></view></view>

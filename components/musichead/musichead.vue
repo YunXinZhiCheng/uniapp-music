@@ -1,7 +1,7 @@
 <template>
 	<view class="music-head" :style="{color:color}">
 		<!-- 头部图标 -->
-		<view class="music-head-icon" v-if="icon">
+		<view class="music-head-icon" v-if="icon" :class="{'music-head-iconblack':iconblack}">
 			<!-- 返回左箭头 -->
 			<text class="iconfont iconzuojiantou-copy" @tap="handleToBack"></text> |
 			<!-- 返回首页 -->
@@ -22,7 +22,7 @@
 			};
 		},
 		// 接收属性: 标题，图标显示/隐藏，颜色
-		props: ['title', 'icon', 'color'],
+		props: ['title', 'icon', 'color', 'iconblack'],
 		// 方法
 		methods: {
 			// 返回上一级
@@ -64,5 +64,11 @@
 		border-radius: 15px;
 		display: flex;
 		justify-content: space-evenly;
+	}
+	
+	.music-head-iconblack{
+		color: #000000;
+		border: 1px solid #eaeaea;
+		background: #FFFFFF;
 	}
 </style>

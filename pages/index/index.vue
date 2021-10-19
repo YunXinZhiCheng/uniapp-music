@@ -7,7 +7,7 @@
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
 				<!-- 搜索 -->
-				<view class="index-search">
+				<view class="index-search" @tap="handleToSearch()">
 					<!-- 搜索图标 -->
 					<text class="iconfont iconsearch"></text>
 					<!-- 搜索表单 -->
@@ -75,6 +75,13 @@
 				})
 			},
 
+			// 跳转到搜索页
+			handleToSearch() {
+				uni.navigateTo({
+					url: '/pages/search/search'
+				})
+			}
+
 		}
 	}
 </script>
@@ -95,6 +102,7 @@
 		font-size: 26rpx;
 		margin-left: 28rpx;
 		margin-right: 26rpx;
+		color: #000000;
 	}
 
 	/* 搜索表单 */
