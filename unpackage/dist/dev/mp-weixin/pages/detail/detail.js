@@ -276,6 +276,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -306,7 +307,9 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
       lyricIndex: 0,
       // 播放控制与旋转
       iconPlay: 'iconpause',
-      isPlayRotate: true };
+      isPlayRotate: true,
+      // 加载提示
+      isLoading: true };
 
   },
   // 注册
@@ -342,9 +345,20 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
 
 
   },
+
   methods: {
     // 获取详情页数据
     getMusic: function getMusic(songId) {var _this = this;
+      // 状态管理
+      this.$store.commit('NEXT_ID', songId);
+
+      // 加载提示
+      uni.showLoading({
+        title: '加载中...' });
+
+      // 加载提示开启
+      this.isLoading = true;
+
       Promise.all([(0, _api.songDetail)(songId), (0, _api.songSimi)(songId), (0, _api.songComment)(songId), (0, _api.songLyric)(songId), (0, _api.songUrl)(
       songId)]).then(function (res) {
         // console.log(res)
@@ -422,7 +436,15 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
             _this.cancelLyricIndex();
           });
 
+          // 监听歌曲播放结束后 播放下一首id
+          _this.bgAudioMannager.onEnded(function () {
+            _this.getMusic(_this.$store.state.nextId);
+          });
+
         }
+        // 加载提示关闭
+        _this.isLoading = false;
+        uni.hideLoading();
       });
     },
 

@@ -116,6 +116,10 @@
 					this.playlist = res[1].data.playlist
 					// 歌曲权限：独家与高质量
 					this.privileges = res[1].data.privileges
+					
+					// 状态管理
+					this.$store.commit('INIT_TOPLISTIDS',res[1].data.playlist.trackIds)
+					
 					// 加载
 					this.isLoading = false
 					// 加载成功后，隐藏加载提示

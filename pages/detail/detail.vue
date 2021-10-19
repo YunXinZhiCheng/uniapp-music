@@ -6,7 +6,7 @@
 		<musichead :title="songDetail.name" :icon="true" color="white"></musichead>
 
 		<!-- 通用容器 -->
-		<view class="container">
+		<view class="container" v-show="!isLoading">
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
 				<!-- 1.播放封面 -->
@@ -35,7 +35,8 @@
 					<!-- 头部 -->
 					<view class="detail-like-head">喜欢这首歌的人也听</view>
 					<!-- 列表项: 左中右-->
-					<view class="detail-like-item" v-for="(item,index) in songSimi" :key="index" @tap="handleToSimi(item.id)">
+					<view class="detail-like-item" v-for="(item,index) in songSimi" :key="index"
+						@tap="handleToSimi(item.id)">
 						<!-- 左 歌曲封面-->
 						<view class="detail-like-img">
 							<image :src="item.album.picUrl" mode=""></image>
@@ -129,7 +130,9 @@
 				lyricIndex: 0,
 				// 播放控制与旋转
 				iconPlay: 'iconpause',
-				isPlayRotate: true
+				isPlayRotate: true,
+				// 加载提示
+				isLoading: true,
 			}
 		},
 		// 注册
@@ -159,15 +162,26 @@
 		onHide() {
 			// 调用清除歌词定时器
 			this.cancelLyricIndex()
-			
+
 			// 销毁音频对象 H5端
 			// #ifdef H5
 			this.bgAudioMannager.destroy()
 			// #endif
 		},
+
 		methods: {
 			// 获取详情页数据
 			getMusic(songId) {
+				// 状态管理
+				this.$store.commit('NEXT_ID', songId)
+
+				// 加载提示
+				uni.showLoading({
+					title: '加载中...'
+				})
+				// 加载提示开启
+				this.isLoading = true
+
 				Promise.all([songDetail(songId), songSimi(songId), songComment(songId), songLyric(songId), songUrl(
 					songId)]).then(res => {
 					// console.log(res)
@@ -245,7 +259,15 @@
 							this.cancelLyricIndex()
 						})
 
+						// 监听歌曲播放结束后 播放下一首id
+						this.bgAudioMannager.onEnded(() => {
+							this.getMusic(this.$store.state.nextId)
+						})
+
 					}
+					// 加载提示关闭
+					this.isLoading = false
+					uni.hideLoading()
 				})
 			},
 
@@ -290,7 +312,7 @@
 				clearInterval(this.timer)
 			},
 			// 点击相似歌曲播放
-			handleToSimi(songId){
+			handleToSimi(songId) {
 				this.getMusic(songId)
 			}
 		}

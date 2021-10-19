@@ -1,5 +1,9 @@
 import App from './App'
 
+// 引入状态管理store
+import store from 'store/index.js'
+
+
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false
@@ -26,7 +30,8 @@ Vue.filter('formatTime', function(value) {
 
 
 const app = new Vue({
-	...App
+	...App,
+	store
 })
 app.$mount()
 // #endif

@@ -281,6 +281,10 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
         _this.playlist = res[1].data.playlist;
         // 歌曲权限：独家与高质量
         _this.privileges = res[1].data.privileges;
+
+        // 状态管理
+        _this.$store.commit('INIT_TOPLISTIDS', res[1].data.playlist.trackIds);
+
         // 加载
         _this.isLoading = false;
         // 加载成功后，隐藏加载提示
