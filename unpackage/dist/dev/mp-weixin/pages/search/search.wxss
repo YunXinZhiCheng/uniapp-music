@@ -198,6 +198,50 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 搜索 */
 .search-search {
 	display: -webkit-box;
@@ -305,5 +349,37 @@
 /* 右 */
 .search-hot-count {
 	color: #878787;
+}
+/* 搜索结果 */
+.search-result{
+	border-top: 2rpx solid #e4e4e4;
+	padding: 30rpx;
+}
+.search-result-item{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	padding-bottom: 30rpx;
+	margin-bottom: 30rpx;
+	border-bottom: 2rpx solid #e4e4e4;
+}
+.search-result-word{}
+.search-result-word view:nth-child(1){
+	font-size: 28rpx;
+	color: #235790;
+	margin-bottom: 12rpx;
+}
+.search-result-word view:nth-child(2){
+	font-size: 22rpx;
+	color: #898989;
+}
+.search-result-item text {
+	font-size: 50rpx;
 }
 

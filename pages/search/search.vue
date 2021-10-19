@@ -11,45 +11,87 @@
 					<!-- 搜索图标 -->
 					<text class="iconfont iconsearch"></text>
 					<!-- 搜索表单  双向数据绑定-->
-					<input type="text" placeholder="搜索歌曲" v-model="searchWord" @confirm="handleToSearch(searchWord)">
+					<input type="text" placeholder="搜索歌曲" v-model="searchWord"
+						@confirm="handleToSearch(searchWord)">
 					<!-- 搜索关闭图标 -->
-					<text class="iconfont iconguanbi"></text>
+					<text v-show="searchType!=1" class="iconfont iconguanbi"></text>
 				</view>
-
-				<!-- 历史记录 -->
-				<view class="search-history">
-					<!-- 头部：左右 -->
-					<view class="search-history-head">
-						<text>历史记录</text>
-						<!-- 垃圾桶图标：清空历史记录 -->
-						<text class="iconfont iconlajitong" @tap="handleToClear"></text>
-					</view>
-					<!-- 列表 历史记录 -->
-					<view class="search-history-list">
-						<view v-for="(item,index) in searchHistory" :key="index" @tap="handleToWord(item)">{{item}}
+				
+				<!-- 块占位符  -->
+				<block v-if="searchType==1">
+					<!-- 历史记录 -->
+					<view class="search-history">
+						<!-- 头部：左右 -->
+						<view class="search-history-head">
+							<text>历史记录</text>
+							<!-- 垃圾桶图标：清空历史记录 -->
+							<text class="iconfont iconlajitong" @tap="handleToClear"></text>
 						</view>
-					</view>
-				</view>
-
-				<!-- 热搜榜 -->
-				<view class="search-hot">
-					<!-- 头部 -->
-					<view class="search-hot-head">热搜榜</view>
-					<!-- 列表项：左中右 -->
-					<view class="search-hot-item" v-for="(item,index) in searchHot" :key="index"
-						@tap="handleToWord(item.searchWord)">
-						<view class="search-hot-top">{{index+1}}</view>
-						<view class="search-hot-word">
-							<view>
-								{{item.searchWord}}
-								<image :src="item.iconUrl" mode="aspectFill"></image>
+						<!-- 列表 历史记录 -->
+						<view class="search-history-list">
+							<view v-for="(item,index) in searchHistory" :key="index" @tap="handleToWord(item)">{{item}}
 							</view>
-							<view>{{item.content}}</view>
 						</view>
-						<text class="search-hot-count">{{item.score}}</text>
 					</view>
-				</view>
 
+					<!-- 热搜榜 -->
+					<view class="search-hot">
+						<!-- 头部 -->
+						<view class="search-hot-head">热搜榜</view>
+						<!-- 列表项：左中右 -->
+						<view class="search-hot-item" v-for="(item,index) in searchHot" :key="index"
+							@tap="handleToWord(item.searchWord)">
+							<view class="search-hot-top">{{index+1}}</view>
+							<view class="search-hot-word">
+								<view>
+									{{item.searchWord}}
+									<image :src="item.iconUrl" mode="aspectFill"></image>
+								</view>
+								<view>{{item.content}}</view>
+							</view>
+							<text class="search-hot-count">{{item.score}}</text>
+						</view>
+					</view>
+				</block>
+				
+				<!-- 搜索结果 -->
+				<block v-else-if="searchType==2">
+					<view class="search-result">
+						<!-- 搜索结果项 -->
+						<view class="search-result-item">
+							<!-- 搜索结果词 -->
+							<view class="search-result-word">
+								<view>忘情水</view>
+								<view>刘德华-恭喜发财</view>
+							</view>
+							<!-- 搜索结果播放图标 -->
+							<text class="iconfont iconbofang"></text>
+						</view>
+						
+						<!-- 搜索结果项 -->
+						<view class="search-result-item">
+							<!-- 搜索结果词 -->
+							<view class="search-result-word">
+								<view>忘情水</view>
+								<view>刘德华-恭喜发财</view>
+							</view>
+							<!-- 搜索结果播放图标 -->
+							<text class="iconfont iconbofang"></text>
+						</view>
+						
+						<!-- 搜索结果项 -->
+						<view class="search-result-item">
+							<!-- 搜索结果词 -->
+							<view class="search-result-word">
+								<view>忘情水</view>
+								<view>刘德华-恭喜发财</view>
+							</view>
+							<!-- 搜索结果播放图标 -->
+							<text class="iconfont iconbofang"></text>
+						</view>
+						
+					</view>
+				</block>
 			</scroll-view>
 		</view>
 	</view>
@@ -75,7 +117,9 @@
 				// 搜索词
 				searchWord: '',
 				// 历史记录
-				searchHistory: []
+				searchHistory: [],
+				// 搜索类型 1是默认显示
+				searchType: 2
 			}
 		},
 		components: {
@@ -239,5 +283,32 @@
 	/* 右 */
 	.search-hot-count {
 		color: #878787;
+	}
+	
+	/* 搜索结果 */
+	.search-result{
+		border-top: 2rpx solid #e4e4e4;
+		padding: 30rpx;
+	}
+	.search-result-item{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-bottom: 30rpx;
+		margin-bottom: 30rpx;
+		border-bottom: 2rpx solid #e4e4e4;
+	}
+	.search-result-word{}
+	.search-result-word view:nth-child(1){
+		font-size: 28rpx;
+		color: #235790;
+		margin-bottom: 12rpx;
+	}
+	.search-result-word view:nth-child(2){
+		font-size: 22rpx;
+		color: #898989;
+	}
+	.search-result-item text {
+		font-size: 50rpx;
 	}
 </style>

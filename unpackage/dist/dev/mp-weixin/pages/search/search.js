@@ -212,6 +212,48 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -230,7 +272,9 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
       // 搜索词
       searchWord: '',
       // 历史记录
-      searchHistory: [] };
+      searchHistory: [],
+      // 搜索类型 1是默认显示
+      searchType: 2 };
 
   },
   components: {
