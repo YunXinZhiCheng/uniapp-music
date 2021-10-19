@@ -14,7 +14,7 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));function _i
 _vue.default.config.productionTip = false;
 _App.default.mpType = 'app';
 
-// 全局过滤器
+// 全局过滤器 次数
 _vue.default.filter('formatCount', function (value) {
   if (value >= 10000 && value <= 100000000) {
     value /= 1000;
@@ -26,6 +26,13 @@ _vue.default.filter('formatCount', function (value) {
     return value;
   }
 });
+
+// 全局过滤器 时间
+_vue.default.filter('formatTime', function (value) {
+  var date = new Date(value);
+  return date.getFullYear() + '年' + (date.getMonth() + 1) + '月' + date.getDate() + '日';
+});
+
 
 var app = new _vue.default(_objectSpread({},
 _App.default));

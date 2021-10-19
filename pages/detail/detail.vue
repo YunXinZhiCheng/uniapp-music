@@ -60,10 +60,10 @@
 					<!-- 头部 -->
 					<view class="detail-comment-head">精彩评论</view>
 					<!-- 列表项 -->
-					<view class="detail-comment-item">
+					<view class="detail-comment-item" v-for="(item,index) in songComment" :key="index">
 						<!-- 1.评论图片 -->
 						<view class="detail-comment-img">
-							<image src="../../static/logo.png" mode=""></image>
+							<image :src="item.user.avatarUrl" mode=""></image>
 						</view>
 						<!-- 2.评论内容 -->
 						<view class="detail-comment-content">
@@ -71,68 +71,22 @@
 							<view class="detail-comment-title">
 								<!-- 评论名称 -->
 								<view class="detail-comment-name">
-									<view>陨星之城</view>
-									<view>2021年10月1日</view>
+									<view>{{item.user.nickname}}</view>
+									<view>{{item.time | formatTime}}</view>
 								</view>
 								<!-- 评论点赞 -->
-								<view class="detail-comment-like">6666
+								<view class="detail-comment-like">
+									{{item.likedCount | formatCount}}
 									<text class="iconfont iconlike"></text>
 								</view>
 							</view>
 							<!-- 2.2评论文本 -->
-							<view class="detail-comment-text">测试文字测试文字</view>
+							<view class="detail-comment-text">{{item.content}}</view>
 						</view>
 					</view>
 
-					<!-- 列表项 -->
-					<view class="detail-comment-item">
-						<!-- 1.评论图片 -->
-						<view class="detail-comment-img">
-							<image src="../../static/logo.png" mode=""></image>
-						</view>
-						<!-- 2.评论内容 -->
-						<view class="detail-comment-content">
-							<!-- 2.1评论标题 -->
-							<view class="detail-comment-title">
-								<!-- 评论名称 -->
-								<view class="detail-comment-name">
-									<view>陨星之城</view>
-									<view>2021年10月1日</view>
-								</view>
-								<!-- 评论点赞 -->
-								<view class="detail-comment-like">6666
-									<text class="iconfont iconlike"></text>
-								</view>
-							</view>
-							<!-- 2.2评论文本 -->
-							<view class="detail-comment-text">测试文字测试文字</view>
-						</view>
-					</view>
 
-					<!-- 列表项 -->
-					<view class="detail-comment-item">
-						<!-- 1.评论图片 -->
-						<view class="detail-comment-img">
-							<image src="../../static/logo.png" mode=""></image>
-						</view>
-						<!-- 2.评论内容 -->
-						<view class="detail-comment-content">
-							<!-- 2.1评论标题 -->
-							<view class="detail-comment-title">
-								<!-- 评论名称 -->
-								<view class="detail-comment-name">
-									<view>陨星之城</view>
-									<view>2021年10月1日</view>
-								</view>
-								<!-- 评论点赞 -->
-								<view class="detail-comment-like">6666
-									<text class="iconfont iconlike"></text>
-								</view>
-							</view>
-							<!-- 2.2评论文本 -->
-							<view class="detail-comment-text">测试文字测试文字</view>
-						</view>
-					</view>
+
 				</view>
 			</scroll-view>
 		</view>
@@ -162,7 +116,9 @@
 					al: {}
 				},
 				// 相似歌曲
-				songSimi: []
+				songSimi: [],
+				// 精彩评论
+				songComment: [],
 			}
 		},
 		// 注册
@@ -180,7 +136,7 @@
 		methods: {
 			// 
 			getMusic(songId) {
-				Promise.all([songDetail(songId), songSimi(songId)]).then(res => {
+				Promise.all([songDetail(songId), songSimi(songId), songComment(songId)]).then(res => {
 					// console.log(res)
 
 					// 音乐信息数据
@@ -191,6 +147,12 @@
 					if (res[1][1].data.code == '200') {
 						this.songSimi = res[1][1].data.songs
 					}
+					// 精彩评论数据
+					if (res[2][1].data.code == '200') {
+						this.songComment = res[2][1].data.hotComments
+						// console.log(this.songComment)
+					}
+
 				})
 			}
 		}
