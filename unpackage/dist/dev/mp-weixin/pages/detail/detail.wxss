@@ -82,6 +82,38 @@
 	bottom: 0;
 	left: 0;
 	margin: auto;
+
+	/* 旋转动画 */
+	-webkit-animation: move-data-v-3e159eb4 10s linear infinite;
+	        animation: move-data-v-3e159eb4 10s linear infinite;
+	-webkit-animation-play-state: paused;
+	        animation-play-state: paused;
+}
+.detail-play .detail-play-run.data-v-3e159eb4 {
+	-webkit-animation-play-state: running;
+	        animation-play-state: running;
+}
+
+/* 关键帧动画 */
+@-webkit-keyframes move-data-v-3e159eb4 {
+from {
+		-webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+}
+to {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+}
+}
+@keyframes move-data-v-3e159eb4 {
+from {
+		-webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+}
+to {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+}
 }
 
 /* 图标 */

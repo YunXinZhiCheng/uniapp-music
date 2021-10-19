@@ -10,11 +10,11 @@
 			<!-- 滚动区域 -->
 			<scroll-view scroll-y="true">
 				<!-- 1.播放封面 -->
-				<view class="detail-play">
+				<view class="detail-play" @tap="handleToPlay">
 					<!-- 图片 歌曲封面-->
-					<image :src="songDetail.al.picUrl"></image>
+					<image :src="songDetail.al.picUrl" :class="{'detail-play-run':isPlayRotate}"></image>
 					<!-- 图标 暂停和播放-->
-					<text class="iconfont iconpause"></text>
+					<text class="iconfont" :class="iconPlay"></text>
 					<!-- 图片 播放摇杆 -->
 					<view></view>
 				</view>
@@ -126,6 +126,9 @@
 				songLyric: [],
 				// 歌词选中状态
 				lyricIndex: 0,
+				// 播放控制与旋转
+				iconPlay: 'iconpause',
+				isPlayRotate: true
 			}
 		},
 		// 注册
@@ -137,13 +140,14 @@
 		onLoad(options) {
 			// console.log(options.songId)
 
-			// 获取详情页数据
+			// 调用详情页数据
 			this.getMusic(options.songId)
 		},
 		methods: {
-			// 
+			// 获取详情页数据
 			getMusic(songId) {
-				Promise.all([songDetail(songId), songSimi(songId), songComment(songId), songLyric(songId)]).then(res => {
+				Promise.all([songDetail(songId), songSimi(songId), songComment(songId), songLyric(songId), songUrl(
+					songId)]).then(res => {
 					// console.log(res)
 
 					// 音乐信息数据
@@ -163,7 +167,7 @@
 					if (res[3][1].data.code == '200') {
 						let lyric = res[3][1].data.lrc.lyric
 						// console.log(lyric)
-						
+
 						// 使用正则处理歌词
 						let re = /\[([^\]]+)\]([^[]+)/g;
 						// console.log(lyric.match(re))
@@ -181,13 +185,45 @@
 
 					}
 
+					// 音乐播放
+					if (res[4][1].data.code == '200') {
+						// 微信小程序端 播放控制
+						this.bgAudioMannager = uni.getBackgroundAudioManager();
+						this.bgAudioMannager.title = this.songDetail.name;
+						this.bgAudioMannager.src = res[4][1].data.data[0].url || '';
+						// 监听播放状态
+						this.bgAudioMannager.onPlay(() => {
+							this.iconPlay = 'iconpause'
+							this.isPlayRotate = true
+						})
+
+						// 监听暂停状态
+						this.bgAudioMannager.onPause(() => {
+							this.iconPlay = 'iconbofang1'
+							this.isPlayRotate = false
+						})
+
+
+						// H5端 播放控制
+					}
 				})
 			},
+			
 			// 时间转换为秒
 			formatTimeToSec(time) {
 				var arr = time.split(':');
 				return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
 			},
+			
+			// 点击控制播放状态
+			handleToPlay(){
+				// 判断：如果是暂停状态，就让它播放
+				if(this.bgAudioMannager.paused){
+					this.bgAudioMannager.play()
+				}else{
+					this.bgAudioMannager.pause()
+				}
+			}
 		}
 	}
 </script>
@@ -216,8 +252,24 @@
 		left: 0;
 		margin: auto;
 
+		/* 旋转动画 */
+		animation: move 10s linear infinite;
+		animation-play-state: paused;
+	}
 
+	.detail-play .detail-play-run {
+		animation-play-state: running;
+	}
 
+	/* 关键帧动画 */
+	@keyframes move {
+		from {
+			transform: rotate(0deg);
+		}
+
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	/* 图标 */

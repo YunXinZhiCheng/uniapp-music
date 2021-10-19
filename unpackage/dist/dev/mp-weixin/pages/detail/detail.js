@@ -175,7 +175,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -302,7 +302,10 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
       // 歌词
       songLyric: [],
       // 歌词选中状态
-      lyricIndex: 0 };
+      lyricIndex: 0,
+      // 播放控制与旋转
+      iconPlay: 'iconpause',
+      isPlayRotate: true };
 
   },
   // 注册
@@ -314,13 +317,14 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
   onLoad: function onLoad(options) {
     // console.log(options.songId)
 
-    // 获取详情页数据
+    // 调用详情页数据
     this.getMusic(options.songId);
   },
   methods: {
-    // 
+    // 获取详情页数据
     getMusic: function getMusic(songId) {var _this = this;
-      Promise.all([(0, _api.songDetail)(songId), (0, _api.songSimi)(songId), (0, _api.songComment)(songId), (0, _api.songLyric)(songId)]).then(function (res) {
+      Promise.all([(0, _api.songDetail)(songId), (0, _api.songSimi)(songId), (0, _api.songComment)(songId), (0, _api.songLyric)(songId), (0, _api.songUrl)(
+      songId)]).then(function (res) {
         // console.log(res)
 
         // 音乐信息数据
@@ -358,13 +362,46 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
 
         }
 
+        // 音乐播放
+        if (res[4][1].data.code == '200') {
+          // 微信小程序端 播放控制
+          _this.bgAudioMannager = uni.getBackgroundAudioManager();
+          _this.bgAudioMannager.title = _this.songDetail.name;
+          _this.bgAudioMannager.src = res[4][1].data.data[0].url || '';
+          // 监听播放状态
+          _this.bgAudioMannager.onPlay(function () {
+            _this.iconPlay = 'iconpause';
+            _this.isPlayRotate = true;
+          });
+
+          // 监听暂停状态
+          _this.bgAudioMannager.onPause(function () {
+            _this.iconPlay = 'iconbofang1';
+            _this.isPlayRotate = false;
+          });
+
+
+          // H5端 播放控制
+        }
       });
     },
+
     // 时间转换为秒
     formatTimeToSec: function formatTimeToSec(time) {
       var arr = time.split(':');
       return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
+    },
+
+    // 点击控制播放状态
+    handleToPlay: function handleToPlay() {
+      // 判断：如果是暂停状态，就让它播放
+      if (this.bgAudioMannager.paused) {
+        this.bgAudioMannager.play();
+      } else {
+        this.bgAudioMannager.pause();
+      }
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
