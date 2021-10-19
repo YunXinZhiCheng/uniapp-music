@@ -11,7 +11,7 @@
 					<!-- 搜索图标 -->
 					<text class="iconfont iconsearch"></text>
 					<!-- 搜索表单  双向数据绑定-->
-					<input type="text" placeholder="搜索歌曲" v-model="searchWord">
+					<input type="text" placeholder="搜索歌曲" v-model="searchWord" @confirm="handleToSearch(searchWord)">
 					<!-- 搜索关闭图标 -->
 					<text class="iconfont iconguanbi"></text>
 				</view>
@@ -21,18 +21,13 @@
 					<!-- 头部：左右 -->
 					<view class="search-history-head">
 						<text>历史记录</text>
-						<text class="iconfont iconlajitong"></text>
+						<!-- 垃圾桶图标：清空历史记录 -->
+						<text class="iconfont iconlajitong" @tap="handleToClear"></text>
 					</view>
-					<!-- 列表 -->
+					<!-- 列表 历史记录 -->
 					<view class="search-history-list">
-						<view>忘情水</view>
-						<view>测试歌曲</view>
-						<view>忘情水</view>
-						<view>测试歌曲</view>
-						<view>忘情水</view>
-						<view>测试歌曲</view>
-						<view>忘情水</view>
-						<view>测试歌曲</view>
+						<view v-for="(item,index) in searchHistory" :key="index" @tap="handleToWord(item)">{{item}}
+						</view>
 					</view>
 				</view>
 
@@ -42,7 +37,7 @@
 					<view class="search-hot-head">热搜榜</view>
 					<!-- 列表项：左中右 -->
 					<view class="search-hot-item" v-for="(item,index) in searchHot" :key="index"
-					@tap="handleToWord(item.searchWord)">
+						@tap="handleToWord(item.searchWord)">
 						<view class="search-hot-top">{{index+1}}</view>
 						<view class="search-hot-word">
 							<view>
@@ -66,7 +61,11 @@
 	// 头部组件引入
 	import musichead from '../../components/musichead/musichead.vue'
 	// 搜索页相关接口引入
-	import {searchHot,searchWord,searchSuggest} from '../../common/api.js'
+	import {
+		searchHot,
+		searchWord,
+		searchSuggest
+	} from '../../common/api.js'
 
 	export default {
 		data() {
@@ -74,28 +73,64 @@
 				// 搜索榜
 				searchHot: [],
 				// 搜索词
-				searchWord: ''
+				searchWord: '',
+				// 历史记录
+				searchHistory: []
 			}
 		},
 		components: {
 			musichead
 		},
-		
+
 		onLoad() {
-		   // 搜索榜数据
-		   searchHot().then(res=>{
-			   // console.log(res[1])
-			   if(res[1].data.code=='200'){
-				   this.searchHot = res[1].data.data
-			   }
-		   })
+			// 搜索榜数据
+			searchHot().then(res => {
+				// console.log(res[1])
+				if (res[1].data.code == '200') {
+					this.searchHot = res[1].data.data
+				}
+			})
 		},
-		
+
 		methods: {
 			// 点击热搜榜，搜索框就更新热搜词
-			handleToWord(word){
+			handleToWord(word) {
 				this.searchWord = word
+			},
+			// 点击搜索框，将输入结果存入搜索历史记录数组
+			handleToSearch(word) {
+				// console.log(word)
+				this.searchHistory.unshift(word)
+				// 相同记录进行数组元素去重
+				this.searchHistory = [...new Set(this.searchHistory)]
+				// 限制数组存入数量
+				if (this.searchHistory.length > 10) {
+					this.searchHistory.length = 10
+				}
+				// 本地存储 历史记录存储
+				uni.setStorage({
+					key: 'searchHistory',
+					data: this.searchHistory
+				})
+				// 本地存储 历史记录取出
+				uni.getStorage({
+					key: 'searchHistory',
+					success: res => {
+						this.searchHistory = res.data
+					}
+				})
+			},
+			// 点击垃圾桶 清空历史记录 清除本地存储
+			handleToClear() {
+				uni.clearStorage({
+					key: 'searchHistory',
+					success: res => {
+						// 清空数组
+						this.searchHistory = []
+					}
+				})
 			}
+
 		}
 	}
 </script>
