@@ -275,6 +275,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -324,11 +325,22 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
   onUnload: function onUnload() {
     // 调用清除歌词定时器
     this.cancelLyricIndex();
+
+    // 销毁音频对象 H5端
+
+
+
+
   },
   // 离开
   onHide: function onHide() {
     // 调用清除歌词定时器
     this.cancelLyricIndex();
+
+    // 销毁音频对象 H5端
+
+
+
   },
   methods: {
     // 获取详情页数据
@@ -375,8 +387,20 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
         // 音乐播放
         if (res[4][1].data.code == '200') {
           // 微信小程序端 播放控制
+
           _this.bgAudioMannager = uni.getBackgroundAudioManager();
           _this.bgAudioMannager.title = _this.songDetail.name;
+
+
+          // H5端 播放控制
+
+
+
+
+
+
+
+
           _this.bgAudioMannager.src = res[4][1].data.data[0].url || '';
 
           // 监听歌词变化
@@ -398,8 +422,6 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
             _this.cancelLyricIndex();
           });
 
-
-          // H5端 播放控制
         }
       });
     },
@@ -443,6 +465,10 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
     // 取消监听的定时器
     cancelLyricIndex: function cancelLyricIndex() {
       clearInterval(this.timer);
+    },
+    // 点击相似歌曲播放
+    handleToSimi: function handleToSimi(songId) {
+      this.getMusic(songId);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

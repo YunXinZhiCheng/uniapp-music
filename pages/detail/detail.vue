@@ -21,7 +21,8 @@
 
 				<!-- 2.歌词 -->
 				<view class="detail-lyric">
-					<view class="detail-lyric-wrap" :style="{ transform : 'translateY(' +  - (lyricIndex - 1) * 82  + 'rpx)' }">
+					<view class="detail-lyric-wrap"
+						:style="{ transform : 'translateY(' +  - (lyricIndex - 1) * 82  + 'rpx)' }">
 						<!-- 歌词项 -->
 						<view class="detail-lyric-item" :class="{ active : lyricIndex == index}"
 							v-for="(item,index) in songLyric" :key="index">
@@ -34,7 +35,7 @@
 					<!-- 头部 -->
 					<view class="detail-like-head">喜欢这首歌的人也听</view>
 					<!-- 列表项: 左中右-->
-					<view class="detail-like-item" v-for="(item,index) in songSimi" :key="index">
+					<view class="detail-like-item" v-for="(item,index) in songSimi" :key="index" @tap="handleToSimi(item.id)">
 						<!-- 左 歌曲封面-->
 						<view class="detail-like-img">
 							<image :src="item.album.picUrl" mode=""></image>
@@ -145,13 +146,24 @@
 		},
 		// 离开
 		onUnload() {
-		   	// 调用清除歌词定时器
+			// 调用清除歌词定时器
 			this.cancelLyricIndex()
+
+			// 销毁音频对象 H5端
+			// #ifdef H5
+			this.bgAudioMannager.destroy()
+			// #endif
+
 		},
 		// 离开
 		onHide() {
 			// 调用清除歌词定时器
 			this.cancelLyricIndex()
+			
+			// 销毁音频对象 H5端
+			// #ifdef H5
+			this.bgAudioMannager.destroy()
+			// #endif
 		},
 		methods: {
 			// 获取详情页数据
@@ -198,8 +210,20 @@
 					// 音乐播放
 					if (res[4][1].data.code == '200') {
 						// 微信小程序端 播放控制
+						// #ifdef MP-WEIXIN
 						this.bgAudioMannager = uni.getBackgroundAudioManager();
 						this.bgAudioMannager.title = this.songDetail.name;
+						// #endif
+
+						// H5端 播放控制
+						// #ifdef H5
+						if (!this.bgAudioMannager) { // 判断音频对象是否存在
+							this.bgAudioMannager = uni.createInnerAudioContext()
+						}
+						this.iconPlay = 'iconbofang1'
+						this.isPlayRotate = false
+						// #endif
+
 						this.bgAudioMannager.src = res[4][1].data.data[0].url || '';
 
 						// 监听歌词变化
@@ -221,8 +245,6 @@
 							this.cancelLyricIndex()
 						})
 
-
-						// H5端 播放控制
 					}
 				})
 			},
@@ -264,8 +286,12 @@
 				}, 500)
 			},
 			// 取消监听的定时器
-			cancelLyricIndex(){
+			cancelLyricIndex() {
 				clearInterval(this.timer)
+			},
+			// 点击相似歌曲播放
+			handleToSimi(songId){
+				this.getMusic(songId)
 			}
 		}
 	}
