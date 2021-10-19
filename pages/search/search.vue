@@ -11,12 +11,11 @@
 					<!-- 搜索图标 -->
 					<text class="iconfont iconsearch"></text>
 					<!-- 搜索表单  双向数据绑定-->
-					<input type="text" placeholder="搜索歌曲" v-model="searchWord"
-						@confirm="handleToSearch(searchWord)">
+					<input type="text" placeholder="搜索歌曲" v-model="searchWord" @confirm="handleToSearch(searchWord)">
 					<!-- 搜索关闭图标 -->
-					<text v-show="searchType!=1" class="iconfont iconguanbi"></text>
+					<text v-show="searchType!=1" class="iconfont iconguanbi" @tap="handleToClose"></text>
 				</view>
-				
+
 				<!-- 块占位符  -->
 				<block v-if="searchType==1">
 					<!-- 历史记录 -->
@@ -53,43 +52,21 @@
 						</view>
 					</view>
 				</block>
-				
+
 				<!-- 搜索结果 -->
 				<block v-else-if="searchType==2">
 					<view class="search-result">
 						<!-- 搜索结果项 -->
-						<view class="search-result-item">
+						<view class="search-result-item" v-for="(item,index) in searchList" :key="index"
+							@tap="handleToDetail(item.id)">
 							<!-- 搜索结果词 -->
 							<view class="search-result-word">
-								<view>忘情水</view>
-								<view>刘德华-恭喜发财</view>
+								<view>{{item.name}}</view>
+								<view>{{item.artists[0].name}} - {{item.album.name}}</view>
 							</view>
 							<!-- 搜索结果播放图标 -->
 							<text class="iconfont iconbofang"></text>
 						</view>
-						
-						<!-- 搜索结果项 -->
-						<view class="search-result-item">
-							<!-- 搜索结果词 -->
-							<view class="search-result-word">
-								<view>忘情水</view>
-								<view>刘德华-恭喜发财</view>
-							</view>
-							<!-- 搜索结果播放图标 -->
-							<text class="iconfont iconbofang"></text>
-						</view>
-						
-						<!-- 搜索结果项 -->
-						<view class="search-result-item">
-							<!-- 搜索结果词 -->
-							<view class="search-result-word">
-								<view>忘情水</view>
-								<view>刘德华-恭喜发财</view>
-							</view>
-							<!-- 搜索结果播放图标 -->
-							<text class="iconfont iconbofang"></text>
-						</view>
-						
 					</view>
 				</block>
 			</scroll-view>
@@ -118,8 +95,10 @@
 				searchWord: '',
 				// 历史记录
 				searchHistory: [],
-				// 搜索类型 1是默认显示
-				searchType: 2
+				// 搜索类型 1是默认显示,2是显示搜索结果
+				searchType: 1,
+				// 搜索结果
+				searchList: []
 			}
 		},
 		components: {
@@ -163,7 +142,11 @@
 						this.searchHistory = res.data
 					}
 				})
+
+				// 搜索结果触发
+				this.getSearchList(word)
 			},
+
 			// 点击垃圾桶 清空历史记录 清除本地存储
 			handleToClear() {
 				uni.clearStorage({
@@ -172,6 +155,30 @@
 						// 清空数组
 						this.searchHistory = []
 					}
+				})
+			},
+
+			// 获取搜索结果
+			getSearchList(word) {
+				searchWord(word).then(res => {
+					// console.log(res)
+					if (res[1].data.code == '200') {
+						this.searchList = res[1].data.result.songs
+						this.searchType = 2
+					}
+				})
+			},
+
+			// 点击关闭按钮: 清空搜索词并返回搜索类型1
+			handleToClose() {
+				this.searchWord = '',
+					this.searchType = 1
+			},
+
+			// 点击搜索结果项，跳转到详情页
+			handleToDetail(songId) {
+				uni.navigateTo({
+					url: '/pages/detail/detail?songId=' + songId
 				})
 			}
 
@@ -284,13 +291,14 @@
 	.search-hot-count {
 		color: #878787;
 	}
-	
+
 	/* 搜索结果 */
-	.search-result{
+	.search-result {
 		border-top: 2rpx solid #e4e4e4;
 		padding: 30rpx;
 	}
-	.search-result-item{
+
+	.search-result-item {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
@@ -298,16 +306,20 @@
 		margin-bottom: 30rpx;
 		border-bottom: 2rpx solid #e4e4e4;
 	}
-	.search-result-word{}
-	.search-result-word view:nth-child(1){
+
+	.search-result-word {}
+
+	.search-result-word view:nth-child(1) {
 		font-size: 28rpx;
 		color: #235790;
 		margin-bottom: 12rpx;
 	}
-	.search-result-word view:nth-child(2){
+
+	.search-result-word view:nth-child(2) {
 		font-size: 22rpx;
 		color: #898989;
 	}
+
 	.search-result-item text {
 		font-size: 50rpx;
 	}

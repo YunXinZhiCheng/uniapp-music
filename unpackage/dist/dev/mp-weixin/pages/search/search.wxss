@@ -242,6 +242,13 @@
 
 
 
+
+
+
+
+
+
+
 /* 搜索 */
 .search-search {
 	display: -webkit-box;
@@ -351,11 +358,11 @@
 	color: #878787;
 }
 /* 搜索结果 */
-.search-result{
+.search-result {
 	border-top: 2rpx solid #e4e4e4;
 	padding: 30rpx;
 }
-.search-result-item{
+.search-result-item {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -369,13 +376,13 @@
 	margin-bottom: 30rpx;
 	border-bottom: 2rpx solid #e4e4e4;
 }
-.search-result-word{}
-.search-result-word view:nth-child(1){
+.search-result-word {}
+.search-result-word view:nth-child(1) {
 	font-size: 28rpx;
 	color: #235790;
 	margin-bottom: 12rpx;
 }
-.search-result-word view:nth-child(2){
+.search-result-word view:nth-child(2) {
 	font-size: 22rpx;
 	color: #898989;
 }

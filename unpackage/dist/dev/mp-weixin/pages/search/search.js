@@ -231,29 +231,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -273,8 +250,10 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
       searchWord: '',
       // 历史记录
       searchHistory: [],
-      // 搜索类型 1是默认显示
-      searchType: 2 };
+      // 搜索类型 1是默认显示,2是显示搜索结果
+      searchType: 1,
+      // 搜索结果
+      searchList: [] };
 
   },
   components: {
@@ -318,7 +297,11 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
           _this2.searchHistory = res.data;
         } });
 
+
+      // 搜索结果触发
+      this.getSearchList(word);
     },
+
     // 点击垃圾桶 清空历史记录 清除本地存储
     handleToClear: function handleToClear() {var _this3 = this;
       uni.clearStorage({
@@ -327,6 +310,30 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
           // 清空数组
           _this3.searchHistory = [];
         } });
+
+    },
+
+    // 获取搜索结果
+    getSearchList: function getSearchList(word) {var _this4 = this;
+      (0, _api.searchWord)(word).then(function (res) {
+        // console.log(res)
+        if (res[1].data.code == '200') {
+          _this4.searchList = res[1].data.result.songs;
+          _this4.searchType = 2;
+        }
+      });
+    },
+
+    // 点击关闭按钮: 清空搜索词并返回搜索类型1
+    handleToClose: function handleToClose() {
+      this.searchWord = '',
+      this.searchType = 1;
+    },
+
+    // 点击搜索结果项，跳转到详情页
+    handleToDetail: function handleToDetail(songId) {
+      uni.navigateTo({
+        url: '/pages/detail/detail?songId=' + songId });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

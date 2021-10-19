@@ -79,23 +79,23 @@ export function songUrl(songId) {
 }
 
 // 搜索页热搜榜接口
-export function searchHot(){
+export function searchHot() {
 	return uni.request({
 		url: `${baseUrl}/search/hot/detail`,
-		method:'GET'
+		method: 'GET'
 	})
 }
 // 搜索页搜索结果接口
-export function searchWord(word){
+export function searchWord(word) {
 	return uni.request({
 		url: `${baseUrl}/search?keywords=${word}`,
-		method:'GET'
+		method: 'GET'
 	})
 }
 // 搜索页下拉提示接口
-export function searchSuggest(word){
+export function searchSuggest(word) {
 	return uni.request({
 		url: `${baseUrl}/search/suggest?keywords=${word}&type=mobile`,
-		method:'GET'
+		method: 'GET'
 	})
 }
