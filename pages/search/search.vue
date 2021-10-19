@@ -10,8 +10,8 @@
 				<view class="search-search">
 					<!-- 搜索图标 -->
 					<text class="iconfont iconsearch"></text>
-					<!-- 搜索表单 -->
-					<input type="text" placeholder="搜索歌曲">
+					<!-- 搜索表单  双向数据绑定-->
+					<input type="text" placeholder="搜索歌曲" v-model="searchWord">
 					<!-- 搜索关闭图标 -->
 					<text class="iconfont iconguanbi"></text>
 				</view>
@@ -41,44 +41,18 @@
 					<!-- 头部 -->
 					<view class="search-hot-head">热搜榜</view>
 					<!-- 列表项：左中右 -->
-					<view class="search-hot-item">
-						<view class="search-hot-top">1</view>
+					<view class="search-hot-item" v-for="(item,index) in searchHot" :key="index"
+					@tap="handleToWord(item.searchWord)">
+						<view class="search-hot-top">{{index+1}}</view>
 						<view class="search-hot-word">
 							<view>
-								忘情水
-								<image src="../../static/dujia.png" mode="aspectFill"></image>
+								{{item.searchWord}}
+								<image :src="item.iconUrl" mode="aspectFill"></image>
 							</view>
-							<view>"忘情水"这个词实在是太美了</view>
+							<view>{{item.content}}</view>
 						</view>
-						<text class="search-hot-count">2968644</text>
+						<text class="search-hot-count">{{item.score}}</text>
 					</view>
-
-					<!-- 列表项：左中右 -->
-					<view class="search-hot-item">
-						<view class="search-hot-top">1</view>
-						<view class="search-hot-word">
-							<view>
-								忘情水
-								<image src="../../static/dujia.png" mode="aspectFill"></image>
-							</view>
-							<view>"忘情水"这个词实在是太美了</view>
-						</view>
-						<text class="search-hot-count">2968644</text>
-					</view>
-
-					<!-- 列表项：左中右 -->
-					<view class="search-hot-item">
-						<view class="search-hot-top">1</view>
-						<view class="search-hot-word">
-							<view>
-								忘情水
-								<image src="../../static/dujia.png" mode="aspectFill"></image>
-							</view>
-							<view>"忘情水"这个词实在是太美了</view>
-						</view>
-						<text class="search-hot-count">2968644</text>
-					</view>
-
 				</view>
 
 			</scroll-view>
@@ -91,18 +65,37 @@
 	import '@/common/iconfont.css'
 	// 头部组件引入
 	import musichead from '../../components/musichead/musichead.vue'
+	// 搜索页相关接口引入
+	import {searchHot,searchWord,searchSuggest} from '../../common/api.js'
 
 	export default {
 		data() {
 			return {
-
+				// 搜索榜
+				searchHot: [],
+				// 搜索词
+				searchWord: ''
 			}
 		},
 		components: {
 			musichead
 		},
+		
+		onLoad() {
+		   // 搜索榜数据
+		   searchHot().then(res=>{
+			   // console.log(res[1])
+			   if(res[1].data.code=='200'){
+				   this.searchHot = res[1].data.data
+			   }
+		   })
+		},
+		
 		methods: {
-
+			// 点击热搜榜，搜索框就更新热搜词
+			handleToWord(word){
+				this.searchWord = word
+			}
 		}
 	}
 </script>
@@ -196,6 +189,11 @@
 	.search-hot-word view:nth-child(2) {
 		font-size: 24rpx;
 		color: #878787;
+		/* 单行溢出隐藏 */
+		width: 60vw;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 
 	.search-hot-word image {

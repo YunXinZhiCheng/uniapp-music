@@ -163,13 +163,6 @@
 
 
 
-
-
-
-
-
-
-
 /* 搜索 */
 .search-search {
 	display: -webkit-box;
@@ -264,6 +257,11 @@
 .search-hot-word view:nth-child(2) {
 	font-size: 24rpx;
 	color: #878787;
+	/* 单行溢出隐藏 */
+	width: 60vw;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 .search-hot-word image {
 	width: 48rpx;

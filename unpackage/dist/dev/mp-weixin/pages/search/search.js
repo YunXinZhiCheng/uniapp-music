@@ -217,59 +217,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+__webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-__webpack_require__(/*! @/common/iconfont.css */ 17); //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _api = __webpack_require__(/*! ../../common/api.js */ 18); //
 //
 //
 //
@@ -332,7 +284,12 @@ __webpack_require__(/*! @/common/iconfont.css */ 17); //
 //
 //
 // 字体图标引入
-var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 38));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return {};}, components: { musichead: musichead }, methods: {} };exports.default = _default;
+var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 38));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { // 搜索榜
+      searchHot: [], // 搜索词
+      searchWord: '' };}, components: { musichead: musichead }, onLoad: function onLoad() {var _this = this; // 搜索榜数据
+    (0, _api.searchHot)().then(function (res) {// console.log(res[1])
+      if (res[1].data.code == '200') {_this.searchHot = res[1].data.data;}});}, methods: { // 点击热搜榜，搜索框就更新热搜词
+    handleToWord: function handleToWord(word) {this.searchWord = word;} } };exports.default = _default;
 
 /***/ }),
 

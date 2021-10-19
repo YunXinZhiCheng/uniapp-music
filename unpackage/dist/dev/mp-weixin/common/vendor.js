@@ -2084,7 +2084,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;exports.list = list;exports.songDetail = songDetail;exports.songSimi = songSimi;exports.songComment = songComment;exports.songLyric = songLyric;exports.songUrl = songUrl;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.topList = topList;exports.list = list;exports.songDetail = songDetail;exports.songSimi = songSimi;exports.songComment = songComment;exports.songLyric = songLyric;exports.songUrl = songUrl;exports.searchHot = searchHot;exports.searchWord = searchWord;exports.searchSuggest = searchSuggest;
 var _config = __webpack_require__(/*! ./config.js */ 19); // 引入
 
 
@@ -2160,6 +2160,28 @@ function songLyric(songId) {
 function songUrl(songId) {
   return uni.request({
     url: "".concat(_config.baseUrl, "/song/url?id=").concat(songId),
+    method: 'GET' });
+
+}
+
+// 搜索页热搜榜接口
+function searchHot() {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/search/hot/detail"),
+    method: 'GET' });
+
+}
+// 搜索页搜索结果接口
+function searchWord(word) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/search?keywords=").concat(word),
+    method: 'GET' });
+
+}
+// 搜索页下拉提示接口
+function searchSuggest(word) {
+  return uni.request({
+    url: "".concat(_config.baseUrl, "/search/suggest?keywords=").concat(word, "&type=mobile"),
     method: 'GET' });
 
 }
