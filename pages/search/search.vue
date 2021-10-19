@@ -130,11 +130,13 @@
 				if (this.searchHistory.length > 10) {
 					this.searchHistory.length = 10
 				}
+				
 				// 本地存储 历史记录存储
 				uni.setStorage({
 					key: 'searchHistory',
 					data: this.searchHistory
 				})
+				
 				// 本地存储 历史记录取出
 				uni.getStorage({
 					key: 'searchHistory',
