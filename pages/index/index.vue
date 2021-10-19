@@ -93,7 +93,7 @@
 		align-items: center;
 		height: 70rpx;
 		margin: 70rpx 30rpx 30rpx 30rpx;
-		color: #f7f7f7;
+		background: #f7f7f7;
 		border-radius: 50rpx;
 	}
 

@@ -104,8 +104,28 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 搜索 */
-.search-search{
+.search-search {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -114,11 +134,11 @@
 	        align-items: center;
 	height: 70rpx;
 	margin: 70rpx 30rpx 30rpx 30rpx;
-	color: #F7F7F7;
+	background: #F7F7F7;
 	border-radius: 50rpx;
 }
 /* 搜索 图标 */
-.search-search text{
+.search-search text {
 	margin: 0 26rpx;
 	color: #000000;
 }
@@ -129,5 +149,35 @@
 	        flex: 1;
 	font-size: 26rpx;
 	color: #000000;
+}
+/* 历史记录 */
+.search-history {
+	margin: 0 30rpx;
+	font-size: 26rpx;
+}
+/* 历史记录 头部 */
+.search-history-head {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
+	margin-bottom: 36rpx;
+}
+/* 历史记录 列表 */
+.search-history-list {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.search-history-list view {
+	padding: 16rpx 28rpx;
+	border-radius: 40rpx;
+	margin-right: 30rpx;
+	margin-bottom: 30rpx;
+	background: #f7f7f7;
 }
 
