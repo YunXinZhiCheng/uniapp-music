@@ -13,8 +13,21 @@
 					<!-- 搜索表单 -->
 					<input type="text" placeholder="搜索歌曲">
 				</view>
+
+				<!-- 骨架屏 -->
+				<view v-if="isLoading">
+					<m-for-skeleton :avatarSize="200" :row="3" 
+					:loading="isLoading" 
+					isarc="square"
+					:titleStyle="{}"
+					:title="false"
+				    v-for="(item,key) in 4" :key="key">
+					</m-for-skeleton>
+				</view>
+				
+
 				<!-- 分类 -->
-				<view class="index-list">
+				<view class="index-list" v-else>
 					<!-- 分类项：左侧图片+右侧信息 -->
 					<view class="index-list-item" v-for="(item,index) in topList" :key="index"
 						@tap="handleToList(item.listId)">
@@ -46,23 +59,35 @@
 	import {
 		topList
 	} from '../../common/api.js'
+
+	// 导入骨架屏组件
+	import mForSkeleton from "@/components/m-for-skeleton/m-for-skeleton";
+
+
 	export default {
 		data() {
 			return {
 				topList: [], // 分类数组
+				isLoading: true // 
 
 			}
 		},
 		// 注册
 		components: {
-			musichead
+			musichead,
+			mForSkeleton
 		},
 		// 生命周期：页面加载完成后触发
 		onLoad() {
 			topList().then(res => {
 				// 判断：如果数据存在
 				if (res.length) {
-					this.topList = res
+					// 定时器 渲染完数据后再关闭骨架屏
+					setTimeout(()=>{
+						this.topList = res
+						this.isLoading =false
+					},1000)
+					
 				}
 			})
 		},

@@ -104,6 +104,9 @@ try {
   components = {
     musichead: function() {
       return __webpack_require__.e(/*! import() | components/musichead/musichead */ "components/musichead/musichead").then(__webpack_require__.bind(null, /*! @/components/musichead/musichead.vue */ 38))
+    },
+    mForSkeleton: function() {
+      return __webpack_require__.e(/*! import() | components/m-for-skeleton/m-for-skeleton */ "components/m-for-skeleton/m-for-skeleton").then(__webpack_require__.bind(null, /*! @/components/m-for-skeleton/m-for-skeleton.vue */ 62))
     }
   }
 } catch (e) {
@@ -127,6 +130,25 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.isLoading
+    ? _vm.__map(4, function(item, key) {
+        var $orig = _vm.__get_orig(item)
+
+        var a0 = {}
+        return {
+          $orig: $orig,
+          a0: a0
+        }
+      })
+    : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -159,6 +181,19 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -242,12 +277,27 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18); //
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // 字体图标引入
-var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 38));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { topList: [] // 分类数组
+var musichead = function musichead() {__webpack_require__.e(/*! require.ensure | components/musichead/musichead */ "components/musichead/musichead").then((function () {return resolve(__webpack_require__(/*! ../../components/musichead/musichead.vue */ 38));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var mForSkeleton = function mForSkeleton() {__webpack_require__.e(/*! require.ensure | components/m-for-skeleton/m-for-skeleton */ "components/m-for-skeleton/m-for-skeleton").then((function () {return resolve(__webpack_require__(/*! @/components/m-for-skeleton/m-for-skeleton */ 62));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default = { data: function data() {return { topList: [], // 分类数组
+      isLoading: true // 
     };}, // 注册
-  components: { musichead: musichead }, // 生命周期：页面加载完成后触发
+  components: { musichead: musichead, mForSkeleton: mForSkeleton }, // 生命周期：页面加载完成后触发
   onLoad: function onLoad() {var _this = this;(0, _api.topList)().then(function (res) {// 判断：如果数据存在
-      if (res.length) {_this.topList = res;}});}, methods: { // 跳转到列表页，参数：列表的Id
+      if (res.length) {// 定时器 渲染完数据后再关闭骨架屏
+        setTimeout(function () {_this.topList = res;_this.isLoading = false;}, 1000);}});}, methods: { // 跳转到列表页，参数：列表的Id
     handleToList: function handleToList(listId) {uni.navigateTo({ // 传参地址：字符串拼接
         url: '/pages/list/list?listId=' + listId });}, // 跳转到搜索页
     handleToSearch: function handleToSearch() {uni.navigateTo({ url: '/pages/search/search' });} } };exports.default = _default;
