@@ -11,7 +11,8 @@
 					<!-- 搜索图标 -->
 					<text class="iconfont iconsearch"></text>
 					<!-- 搜索表单  双向数据绑定-->
-					<input type="text" placeholder="搜索歌曲" v-model="searchWord" @confirm="handleToSearch(searchWord)">
+					<input type="text" placeholder="搜索歌曲" v-model="searchWord" @confirm="handleToSearch(searchWord)"
+						@input="handleToSuggest">
 					<!-- 搜索关闭图标 -->
 					<text v-show="searchType!=1" class="iconfont iconguanbi" @tap="handleToClose"></text>
 				</view>
@@ -69,6 +70,20 @@
 						</view>
 					</view>
 				</block>
+
+				<!-- 搜索下拉提示 -->
+				<block v-else-if="searchType==3">
+					<view class="search-suggest">
+						<!-- 头部 -->
+						<view class="search-suggest-head">搜索”{{searchWord}}“</view>
+						<!-- 列表项 搜索提示 -->
+						<view class="search-suggest-item" v-for="(item,index) in searchSuggest" :key="index"
+							@tap="handleToWord(item.keyword)">
+							<text class="iconfont iconsearch"></text> {{item.keyword}}
+						</view>
+
+					</view>
+				</block>
 			</scroll-view>
 		</view>
 	</view>
@@ -95,10 +110,12 @@
 				searchWord: '',
 				// 历史记录
 				searchHistory: [],
-				// 搜索类型 1是默认显示,2是显示搜索结果
+				// 搜索类型 1是默认显示,2是显示搜索结果,3是显示搜索提示
 				searchType: 1,
 				// 搜索结果
-				searchList: []
+				searchList: [],
+				// 搜索下拉提示
+				searchSuggest: []
 			}
 		},
 		components: {
@@ -119,6 +136,7 @@
 			// 点击热搜榜，搜索框就更新热搜词
 			handleToWord(word) {
 				this.searchWord = word
+				this.handleToSearch(word)
 			},
 			// 点击搜索框，将输入结果存入搜索历史记录数组
 			handleToSearch(word) {
@@ -130,13 +148,13 @@
 				if (this.searchHistory.length > 10) {
 					this.searchHistory.length = 10
 				}
-				
+
 				// 本地存储 历史记录存储
 				uni.setStorage({
 					key: 'searchHistory',
 					data: this.searchHistory
 				})
-				
+
 				// 本地存储 历史记录取出
 				uni.getStorage({
 					key: 'searchHistory',
@@ -182,7 +200,24 @@
 				uni.navigateTo({
 					url: '/pages/detail/detail?songId=' + songId
 				})
-			}
+			},
+
+			// 点击输入框，触发搜索下拉提示
+			handleToSuggest(ev) {
+				let value = ev.detail.value
+				// console.log(value)
+				if (!value) {
+					this.searchType = 1;
+					return;
+				}
+				// 发起搜索下拉提示请求
+				searchSuggest(value).then(res => {
+					if (res[1].data.code == '200') {
+						this.searchSuggest = res[1].data.result.allMatch
+						this.searchType = 3
+					}
+				})
+			},
 
 		}
 	}
@@ -324,5 +359,31 @@
 
 	.search-result-item text {
 		font-size: 50rpx;
+	}
+
+
+	/* 搜索下拉提示 */
+	.search-suggest {
+		border-top: 2rpx solid #E4E4E4;
+		padding: 30rpx;
+		font-size: 26rpx;
+
+	}
+
+	.search-suggest-head {
+		color: #4574a5;
+		margin-bottom: 74rpx;
+	}
+
+	.search-suggest-item {
+		color: #5d5d5d;
+		margin-top: 74rpx;
+	}
+
+	.search-suggest-item text {
+		color: #bdbdbd;
+		margin-right: 28rpx;
+		position: relative;
+		top: 2rpx;
 	}
 </style>

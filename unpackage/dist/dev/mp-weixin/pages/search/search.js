@@ -231,6 +231,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -250,10 +265,12 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
       searchWord: '',
       // 历史记录
       searchHistory: [],
-      // 搜索类型 1是默认显示,2是显示搜索结果
+      // 搜索类型 1是默认显示,2是显示搜索结果,3是显示搜索提示
       searchType: 1,
       // 搜索结果
-      searchList: [] };
+      searchList: [],
+      // 搜索下拉提示
+      searchSuggest: [] };
 
   },
   components: {
@@ -274,6 +291,7 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
     // 点击热搜榜，搜索框就更新热搜词
     handleToWord: function handleToWord(word) {
       this.searchWord = word;
+      this.handleToSearch(word);
     },
     // 点击搜索框，将输入结果存入搜索历史记录数组
     handleToSearch: function handleToSearch(word) {var _this2 = this;
@@ -337,6 +355,23 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);function _toConsum
       uni.navigateTo({
         url: '/pages/detail/detail?songId=' + songId });
 
+    },
+
+    // 点击输入框，触发搜索下拉提示
+    handleToSuggest: function handleToSuggest(ev) {var _this5 = this;
+      var value = ev.detail.value;
+      // console.log(value)
+      if (!value) {
+        this.searchType = 1;
+        return;
+      }
+      // 发起搜索下拉提示请求
+      (0, _api.searchSuggest)(value).then(function (res) {
+        if (res[1].data.code == '200') {
+          _this5.searchSuggest = res[1].data.result.allMatch;
+          _this5.searchType = 3;
+        }
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

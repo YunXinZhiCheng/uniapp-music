@@ -251,6 +251,41 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 搜索 */
 .search-search {
 	display: -webkit-box;
@@ -390,5 +425,25 @@
 }
 .search-result-item text {
 	font-size: 50rpx;
+}
+/* 搜索下拉提示 */
+.search-suggest {
+	border-top: 2rpx solid #E4E4E4;
+	padding: 30rpx;
+	font-size: 26rpx;
+}
+.search-suggest-head {
+	color: #4574a5;
+	margin-bottom: 74rpx;
+}
+.search-suggest-item {
+	color: #5d5d5d;
+	margin-top: 74rpx;
+}
+.search-suggest-item text {
+	color: #bdbdbd;
+	margin-right: 28rpx;
+	position: relative;
+	top: 2rpx;
 }
 
