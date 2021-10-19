@@ -320,6 +320,16 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
     // 调用详情页数据
     this.getMusic(options.songId);
   },
+  // 离开
+  onUnload: function onUnload() {
+    // 调用清除歌词定时器
+    this.cancelLyricIndex();
+  },
+  // 离开
+  onHide: function onHide() {
+    // 调用清除歌词定时器
+    this.cancelLyricIndex();
+  },
   methods: {
     // 获取详情页数据
     getMusic: function getMusic(songId) {var _this = this;
@@ -368,16 +378,24 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
           _this.bgAudioMannager = uni.getBackgroundAudioManager();
           _this.bgAudioMannager.title = _this.songDetail.name;
           _this.bgAudioMannager.src = res[4][1].data.data[0].url || '';
+
+          // 监听歌词变化
+          _this.listenLyricIndex();
+
           // 监听播放状态
           _this.bgAudioMannager.onPlay(function () {
             _this.iconPlay = 'iconpause';
             _this.isPlayRotate = true;
+            // 开启歌词定时器
+            _this.listenLyricIndex();
           });
 
           // 监听暂停状态
           _this.bgAudioMannager.onPause(function () {
             _this.iconPlay = 'iconbofang1';
             _this.isPlayRotate = false;
+            // 清除歌词定时器
+            _this.cancelLyricIndex();
           });
 
 
@@ -400,6 +418,31 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
       } else {
         this.bgAudioMannager.pause();
       }
+    },
+
+    // 监听歌词变化滚动: 使用定时器
+    listenLyricIndex: function listenLyricIndex() {var _this2 = this;
+      clearInterval(this.timer);
+      this.timer = setInterval(function () {
+        for (var i = 0; i < _this2.songLyric.length; i++) {
+          // 当前播放时间走到歌词最后时间时
+          if (_this2.bgAudioMannager.currentTime > _this2.songLyric[_this2.songLyric.length - 1].time) {
+            _this2.lyricIndex = _this2.songLyric.length - 1;
+            break;
+          }
+          // 当前播放时间大于歌词i时间并且小于歌词i+1时间
+          if (_this2.bgAudioMannager.currentTime > _this2.songLyric[i].time && _this2.bgAudioMannager.
+          currentTime < _this2.songLyric[i + 1].time)
+          {
+            _this2.lyricIndex = i;
+          }
+        }
+        // console.log(this.lyricIndex)
+      }, 500);
+    },
+    // 取消监听的定时器
+    cancelLyricIndex: function cancelLyricIndex() {
+      clearInterval(this.timer);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -21,7 +21,7 @@
 
 				<!-- 2.歌词 -->
 				<view class="detail-lyric">
-					<view class="detail-lyric-wrap">
+					<view class="detail-lyric-wrap" :style="{ transform : 'translateY(' +  - (lyricIndex - 1) * 82  + 'rpx)' }">
 						<!-- 歌词项 -->
 						<view class="detail-lyric-item" :class="{ active : lyricIndex == index}"
 							v-for="(item,index) in songLyric" :key="index">
@@ -143,6 +143,16 @@
 			// 调用详情页数据
 			this.getMusic(options.songId)
 		},
+		// 离开
+		onUnload() {
+		   	// 调用清除歌词定时器
+			this.cancelLyricIndex()
+		},
+		// 离开
+		onHide() {
+			// 调用清除歌词定时器
+			this.cancelLyricIndex()
+		},
 		methods: {
 			// 获取详情页数据
 			getMusic(songId) {
@@ -191,16 +201,24 @@
 						this.bgAudioMannager = uni.getBackgroundAudioManager();
 						this.bgAudioMannager.title = this.songDetail.name;
 						this.bgAudioMannager.src = res[4][1].data.data[0].url || '';
+
+						// 监听歌词变化
+						this.listenLyricIndex()
+
 						// 监听播放状态
 						this.bgAudioMannager.onPlay(() => {
 							this.iconPlay = 'iconpause'
 							this.isPlayRotate = true
+							// 开启歌词定时器
+							this.listenLyricIndex()
 						})
 
 						// 监听暂停状态
 						this.bgAudioMannager.onPause(() => {
 							this.iconPlay = 'iconbofang1'
 							this.isPlayRotate = false
+							// 清除歌词定时器
+							this.cancelLyricIndex()
 						})
 
 
@@ -208,21 +226,46 @@
 					}
 				})
 			},
-			
+
 			// 时间转换为秒
 			formatTimeToSec(time) {
 				var arr = time.split(':');
 				return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
 			},
-			
+
 			// 点击控制播放状态
-			handleToPlay(){
+			handleToPlay() {
 				// 判断：如果是暂停状态，就让它播放
-				if(this.bgAudioMannager.paused){
+				if (this.bgAudioMannager.paused) {
 					this.bgAudioMannager.play()
-				}else{
+				} else {
 					this.bgAudioMannager.pause()
 				}
+			},
+
+			// 监听歌词变化滚动: 使用定时器
+			listenLyricIndex() {
+				clearInterval(this.timer)
+				this.timer = setInterval(() => {
+					for (var i = 0; i < this.songLyric.length; i++) {
+						// 当前播放时间走到歌词最后时间时
+						if (this.bgAudioMannager.currentTime > this.songLyric[this.songLyric.length - 1].time) {
+							this.lyricIndex = this.songLyric.length - 1;
+							break;
+						}
+						// 当前播放时间大于歌词i时间并且小于歌词i+1时间
+						if (this.bgAudioMannager.currentTime > this.songLyric[i].time && this.bgAudioMannager
+							.currentTime < this.songLyric[i + 1].time
+						) {
+							this.lyricIndex = i;
+						}
+					}
+					// console.log(this.lyricIndex)
+				}, 500)
+			},
+			// 取消监听的定时器
+			cancelLyricIndex(){
+				clearInterval(this.timer)
 			}
 		}
 	}
@@ -314,7 +357,9 @@
 		color: #6f6e73;
 	}
 
-	.detail-lyric-wrap {}
+	.detail-lyric-wrap {
+		transition: 0.5s;
+	}
 
 	/* 歌词项 */
 	.detail-lyric-item {
