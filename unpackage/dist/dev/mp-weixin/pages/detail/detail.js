@@ -274,6 +274,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
 __webpack_require__(/*! @/common/iconfont.css */ 17);
 
 
@@ -290,12 +291,18 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
     return {
       // 音乐信息
       songDetail: {
-        al: {} },
+        al: {
+          picUrl: '' } },
+
 
       // 相似歌曲
       songSimi: [],
       // 精彩评论
-      songComment: [] };
+      songComment: [],
+      // 歌词
+      songLyric: [],
+      // 歌词选中状态
+      lyricIndex: 0 };
 
   },
   // 注册
@@ -307,13 +314,13 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
   onLoad: function onLoad(options) {
     // console.log(options.songId)
 
-    // 
+    // 获取详情页数据
     this.getMusic(options.songId);
   },
   methods: {
     // 
     getMusic: function getMusic(songId) {var _this = this;
-      Promise.all([(0, _api.songDetail)(songId), (0, _api.songSimi)(songId), (0, _api.songComment)(songId)]).then(function (res) {
+      Promise.all([(0, _api.songDetail)(songId), (0, _api.songSimi)(songId), (0, _api.songComment)(songId), (0, _api.songLyric)(songId)]).then(function (res) {
         // console.log(res)
 
         // 音乐信息数据
@@ -329,8 +336,34 @@ var _api = __webpack_require__(/*! ../../common/api.js */ 18);var musichead = fu
           _this.songComment = res[2][1].data.hotComments;
           // console.log(this.songComment)
         }
+        // 歌词数据
+        if (res[3][1].data.code == '200') {
+          var lyric = res[3][1].data.lrc.lyric;
+          // console.log(lyric)
+
+          // 使用正则处理歌词
+          var re = /\[([^\]]+)\]([^[]+)/g;
+          // console.log(lyric.match(re))
+
+          // 使用数组存储时间和歌词
+          var result = [];
+          lyric.replace(re, function ($0, $1, $2) {
+            result.push({
+              time: _this.formatTimeToSec($1),
+              lyric: $2 });
+
+          });
+          // console.log(result)
+          _this.songLyric = result;
+
+        }
 
       });
+    },
+    // 时间转换为秒
+    formatTimeToSec: function formatTimeToSec(time) {
+      var arr = time.split(':');
+      return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
     } } };exports.default = _default;
 
 /***/ }),

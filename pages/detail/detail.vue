@@ -23,9 +23,10 @@
 				<view class="detail-lyric">
 					<view class="detail-lyric-wrap">
 						<!-- 歌词项 -->
-						<view class="detail-lyric-item">测试文字测试文字</view>
-						<view class="detail-lyric-item active">测试文字测试文字</view>
-						<view class="detail-lyric-item">测试文字测试文字测试文字</view>
+						<view class="detail-lyric-item" :class="{ active : lyricIndex == index}"
+							v-for="(item,index) in songLyric" :key="index">
+							{{ item.lyric }}
+						</view>
 					</view>
 				</view>
 				<!-- 3.相似歌曲 -->
@@ -97,7 +98,7 @@
 	// 头部组件引入
 	import musichead from '../../components/musichead/musichead.vue'
 	// 字体图标样式引入
-	import '@/common/iconfont.css'
+	import '@/common/iconfont.css';
 
 	// 详情页音乐信息接口引入
 	import {
@@ -113,12 +114,18 @@
 			return {
 				// 音乐信息
 				songDetail: {
-					al: {}
+					al: {
+						picUrl: ''
+					}
 				},
 				// 相似歌曲
 				songSimi: [],
 				// 精彩评论
 				songComment: [],
+				// 歌词
+				songLyric: [],
+				// 歌词选中状态
+				lyricIndex: 0,
 			}
 		},
 		// 注册
@@ -130,13 +137,13 @@
 		onLoad(options) {
 			// console.log(options.songId)
 
-			// 
+			// 获取详情页数据
 			this.getMusic(options.songId)
 		},
 		methods: {
 			// 
 			getMusic(songId) {
-				Promise.all([songDetail(songId), songSimi(songId), songComment(songId)]).then(res => {
+				Promise.all([songDetail(songId), songSimi(songId), songComment(songId), songLyric(songId)]).then(res => {
 					// console.log(res)
 
 					// 音乐信息数据
@@ -152,9 +159,35 @@
 						this.songComment = res[2][1].data.hotComments
 						// console.log(this.songComment)
 					}
+					// 歌词数据
+					if (res[3][1].data.code == '200') {
+						let lyric = res[3][1].data.lrc.lyric
+						// console.log(lyric)
+						
+						// 使用正则处理歌词
+						let re = /\[([^\]]+)\]([^[]+)/g;
+						// console.log(lyric.match(re))
+
+						// 使用数组存储时间和歌词
+						let result = []
+						lyric.replace(re, ($0, $1, $2) => {
+							result.push({
+								time: this.formatTimeToSec($1),
+								lyric: $2
+							});
+						});
+						// console.log(result)
+						this.songLyric = result;
+
+					}
 
 				})
-			}
+			},
+			// 时间转换为秒
+			formatTimeToSec(time) {
+				var arr = time.split(':');
+				return (parseFloat(arr[0]) * 60 + parseFloat(arr[1])).toFixed(2);
+			},
 		}
 	}
 </script>
